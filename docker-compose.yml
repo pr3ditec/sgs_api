@@ -1,0 +1,9 @@
+services:
+  mysql:
+      image: mysql:latest
+      environment:
+          MYSQL_USER: sgs_preditec
+          MYSQL_ROOT_PASSWORD: sgs_dbpassword
+          MYSQL_PASSWORD: sgs_dbpassword
+      ports:
+          - "3307:3306"

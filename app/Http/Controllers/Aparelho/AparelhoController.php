@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\usuario;
+namespace App\Http\Controllers\Aparelho;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class AparelhoController extends Controller
 {
     //
 }

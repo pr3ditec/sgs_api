@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\aparelho;
+namespace App\Http\Controllers\Servicos;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AparelhoController extends Controller
+class ItemOsEquipamento extends Controller
 {
     //
 }

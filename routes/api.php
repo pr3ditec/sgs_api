@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\aparelho\AparelhoController;
-use App\Http\Controllers\cidade\CidadeController;
-use App\Http\Controllers\cliente\ClienteController;
-use App\Http\Controllers\login\LoginController;
-use App\Http\Controllers\servicos\OrdemServicoController;
-use App\Http\Controllers\telefone\TelefoneController;
-use App\Http\Controllers\usuario\UsuarioController;
+use App\Http\Controllers\Aparelho\AparelhoController;
+use App\Http\Controllers\Cidade\CidadeController;
+use App\Http\Controllers\Cliente\ClienteController;
+use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Servicos\OrdemServicoController;
+use App\Http\Controllers\Telefone\TelefoneController;
+use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*

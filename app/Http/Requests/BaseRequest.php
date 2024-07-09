@@ -46,6 +46,7 @@ class BaseRequest extends FormRequest
             'boolean' => 'O :attribute precisa ser do true/false',
             'exists' => 'O :attribute não existe',
             'unique' => 'O :attribute já existe',
+            'email' => 'O :attribute precisa ser um email válido',
         ];
     }
 }

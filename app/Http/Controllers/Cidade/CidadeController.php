@@ -16,7 +16,7 @@ class CidadeController extends Controller
     {
         try {
 
-            $cidade = Cidade::getAll('usuario');
+            $cidade = Cidade::getAll('cidade');
 
             if ($cidade->isEmpty()) {
 

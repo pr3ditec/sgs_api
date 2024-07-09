@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("cnpj", 14);
             $table->string("inscricao_municipal", 15)->nullable();
             $table->string("inscricao_estadual", 15)->nullable();
-            $table->foreignId('id')->references('id')->on('cliente')->onDelete('cascade');
+            $table->foreignId('cliente_id')->references('id')->on('cliente')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pessoa_fisica', function (Blueprint $table) {
             $table->id();
             $table->string('cpf', 11);
+            $table->foreignId('id')->references('id')->on('cliente')->onDelete('cascade');
             $table->timestamps();
         });
     }

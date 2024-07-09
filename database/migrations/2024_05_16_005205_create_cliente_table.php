@@ -18,10 +18,6 @@ return new class extends Migration
             $table->string("cep", 10);
             $table->string("complemento", 100);
             $table->string("numero", 5);
-            $table->unsignedBigInteger("pessoa_fisica_id")->nullable();
-            $table->foreign("pessoa_fisica_id")->references("id")->on("pessoa_fisica")->onDelete("CASCADE");
-            $table->unsignedBigInteger("pessoa_juridica_id")->nullable();
-            $table->foreign("pessoa_juridica_id")->references("id")->on("pessoa_juridica")->onDelete("CASCADE");
             $table->foreignId("cidade_id")->references("id")->on("cidade");
             $table->timestamps();
         });

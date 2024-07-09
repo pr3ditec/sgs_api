@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("nome", 100);
             $table->string("logradouro", 255);
-            $table->string("cep", 10);
+            $table->string("cep", 8);
             $table->string("complemento", 100);
             $table->string("numero", 5);
             $table->foreignId("cidade_id")->references("id")->on("cidade");

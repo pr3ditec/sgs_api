@@ -27,5 +27,5 @@ Route::apiResource("aparelho", AparelhoController::class);
 Route::apiResource("cidade", CidadeController::class);
 Route::apiResource("cliente", ClienteController::class);
 Route::apiResource("ordem-servico", OrdemServicoController::class);
-Route::apiResource("TelefoneController", TelefoneController::class);
+Route::apiResource("telefone", TelefoneController::class);
 Route::apiResource("usuario", UsuarioController::class);

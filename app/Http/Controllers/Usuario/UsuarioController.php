@@ -52,7 +52,7 @@ class UsuarioController extends Controller
 
             $usuario = Usuario::create($request->validated());
 
-            Response::send(200, true, 'store-user-success', $usuario);
+            return Response::send(200, true, 'store-user-success', $usuario);
         } catch (Exception $e) {
 
             return Response::send(400, false, 'store-user-error', $e->getMessage());

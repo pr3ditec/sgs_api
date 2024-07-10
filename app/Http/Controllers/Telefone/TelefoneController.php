@@ -51,7 +51,7 @@ class TelefoneController extends Controller
 
             $telefone = Telefone::create($request->validated());
 
-            Response::send(200, true, 'store-telephone-success', $telefone);
+            return Response::send(200, true, 'store-telephone-success', $telefone);
         } catch (Exception $e) {
 
             return Response::send(400, false, 'store-telephone-error', $e->getMessage());

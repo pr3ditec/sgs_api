@@ -86,7 +86,7 @@ class ClienteController extends Controller
             }
 
             DB::commit();
-            Response::send(200, true, 'store-client-success', [
+            return Response::send(200, true, 'store-client-success', [
                 "cliente" => $cliente,
                 "pessoa_fisica" => $pessoa_fisica,
                 "pessoa_juridica" => $pessoa_juridica,

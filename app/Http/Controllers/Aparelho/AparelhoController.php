@@ -51,7 +51,7 @@ class AparelhoController extends Controller
 
             $aparelho = Aparelho::create($request->validated());
 
-            Response::send(200, true, 'store-device-success', $aparelho);
+            return Response::send(200, true, 'store-device-success', $aparelho);
         } catch (Exception $e) {
 
             return Response::send(400, false, 'store-device-error', $e->getMessage());

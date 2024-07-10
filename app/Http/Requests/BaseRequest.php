@@ -47,7 +47,7 @@ class BaseRequest extends FormRequest
             'exists' => 'O :attribute não existe',
             'unique' => 'O :attribute já existe',
             'email' => 'O :attribute precisa ser um email válido',
-            'digits' => 'O :attribute precisa ter :value digitos',
+            'digits' => 'O :attribute precisa ter :digits digitos',
             'numeric' => 'O :attribute precisa ser do tipo numérico',
             'alpha_num' => 'O :attribute precisa ser somente letras',
             'prohibits' => 'O :attribute bloqueia os campos :fields'

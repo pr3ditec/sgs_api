@@ -20,7 +20,7 @@ class ClienteController extends Controller
     {
         try {
 
-            $cliente = Cliente::getAll('cliente');
+            $cliente = Cliente::getAllData('cliente');
 
             if ($cliente->isEmpty()) {
 
@@ -45,8 +45,8 @@ class ClienteController extends Controller
 
             return Response::send(200, true, 'show-client-success', [
                 "cliente" => $cliente,
-                "pessoa_juridica" => $pessoa_juridica,
-                "pessoa_fisica" => $pessoa_fisica,
+                "pessoa_juridica" => $pessoa_juridica ?? [],
+                "pessoa_fisica" => $pessoa_fisica ?? [],
             ]);
         } catch (ModelNotFoundException $e) {
             return Response::send(404, false, 'client-not-found');
@@ -88,8 +88,8 @@ class ClienteController extends Controller
             DB::commit();
             return Response::send(200, true, 'store-client-success', [
                 "cliente" => $cliente,
-                "pessoa_fisica" => $pessoa_fisica,
-                "pessoa_juridica" => $pessoa_juridica,
+                "pessoa_fisica" => $pessoa_fisica ?? [],
+                "pessoa_juridica" => $pessoa_juridica ?? [],
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -124,7 +124,8 @@ class ClienteController extends Controller
                 $pessoa_fisica = PessoaFisica::where("cliente_id", "=", $cliente->id)->first();
                 $pessoa_fisica->update(["cpf" => $request->cpf]);
 
-            } else {
+            }
+            if (isset($request->cnpj)) {
                 $pessoa_juridica = PessoaJuridica::where("cliente_id", "=", $cliente->id)->first();
                 $pessoa_juridica->update([
                     "cnpj" => $request->cnpj,

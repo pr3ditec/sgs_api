@@ -26,7 +26,7 @@ class AlterarClienteRequest extends BaseRequest
             'logradouro' => 'max:255',
             'cep' => 'digits:8|numeric',
             'complemento' => 'max:100',
-            'numero' => 'max:5|numeric',
+            'numero' => 'max:5',
             'cidade_id' => 'exists:cidade,id',
             'cpf' => 'digits:11|numeric|unique:pessoa_fisica,cpf|prohibits:cnpj,inscricao_municipal,inscricao_estadual',
             'cnpj' => 'digits:14|numeric|unique:pessoa_juridica,cnpj|prohibits:cpf',

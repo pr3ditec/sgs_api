@@ -51,7 +51,7 @@ class CidadeController extends Controller
 
             $cidade = Cidade::create($request->validated());
 
-            Response::send(200, true, 'store-city-success', $cidade);
+            return Response::send(200, true, 'store-city-success', $cidade);
         } catch (Exception $e) {
 
             return Response::send(400, false, 'store-city-error', $e->getMessage());

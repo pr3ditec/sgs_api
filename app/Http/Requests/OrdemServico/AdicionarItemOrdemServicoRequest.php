@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests\OrdemServico;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseRequest;
 
-class AdicionarItemOrdemServicoRequest extends FormRequest
+class AdicionarItemOrdemServicoRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class AdicionarItemOrdemServicoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "quantidade" => "required|integer",
+            "preco_unitario" => "required|numeric",
+            "ordem_servico_id" => "required|exists:ordem_servico,id",
+            "aparelho_id" => "required|exists:aparelho,id",
         ];
+    }
+
+    public function messages(): array
+    {
+        return parent::responseMessages();
     }
 }

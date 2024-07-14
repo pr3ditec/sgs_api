@@ -4,6 +4,7 @@ namespace App\Http\Requests\OrdemServico;
 
 use App\Http\Requests\BaseRequest;
 use App\Rules\EquipamentosRule;
+use App\Rules\ServicosRule;
 
 class CriarOrdemServicoRequest extends BaseRequest
 {
@@ -23,12 +24,13 @@ class CriarOrdemServicoRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            // 'numero' => 'required|max:10',
-            // 'concluido' => 'required|boolean',
-            // 'recebido' => 'required|boolean',
+            'numero' => 'required|max:10',
+            'concluido' => 'required|boolean',
+            'recebido' => 'required|boolean',
             'equipamentos' => ["required", new EquipamentosRule()],
-            // 'cliente_id' => 'required|exists:cliente,id',
-            // 'usuario_id' => 'required|exists:usuario,id',
+            'servicos' => ["required", new ServicosRule()],
+            'cliente_id' => 'required|exists:cliente,id',
+            'usuario_id' => 'required|exists:usuario,id',
         ];
     }
 

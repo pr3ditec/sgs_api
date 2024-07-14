@@ -52,6 +52,8 @@ class BaseRequest extends FormRequest
             'alpha_num' => 'O atributo :attribute precisa ser somente letras',
             'prohibits' => 'O atributo :attribute bloqueia os campos :fields',
             'array' => 'O atributo :attribute precisa ser um array',
+            'integer' => "O atributo :attribute precisa ser do tipo inteiro",
+            'uppercase' => "O atributo :attribute precisa ser uppercase",
         ];
     }
 }

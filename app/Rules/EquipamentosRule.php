@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\DB;
 
 class EquipamentosRule implements ValidationRule
 {
@@ -21,12 +22,31 @@ class EquipamentosRule implements ValidationRule
 
         foreach ($value as $val) {
 
-            if (!array_key_exists("servicos", $val)) {
-                $fail("O atributo :attribute precisa ter a chave 'servicos'");
+            if (!array_key_exists("quantidade", $val)) {
+
+                $fail("O atributo :attribute precisa ter a chave 'quantidade'");
+
             }
 
-            if (!is_array($val['servicos'])) {
-                $fail("O atributo servicos precisa ser uma array");
+            if (!array_key_exists("preco_unitario", $val)) {
+
+                $fail("O atributo :attribute precisa ter a chave 'preco_unitario'");
+            }
+
+            if (!array_key_exists("ordem_servico_id", $val)) {
+
+                $fail("O atributo :attribute precisa ter a chave 'ordem_servico_id'");
+            } else if (!DB::table('ordem_servico')->where('id', '=', $val['ordem_servico_id'])->exists()) {
+
+                $fail("O campo ordem_servico_id precisa existir na base de dados");
+            }
+
+            if (!array_key_exists("aparelho_id", $val)) {
+
+                $fail("O atributo :attribute precisa ter a chave 'aparelho_id'");
+            } else if (!DB::table('aparelho')->where('id', '=', $val['aparelho_id'])->exists()) {
+
+                $fail("O campo aparelho_id precisa existir na base de dados");
             }
         }
 

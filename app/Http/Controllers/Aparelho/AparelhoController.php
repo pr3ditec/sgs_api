@@ -68,8 +68,8 @@ class AparelhoController extends Controller
 
             $aparelho = Aparelho::findOrFail($id);
             $aparelho->update([
-                "nome" => strtoupper($request->nome) ?? $aparelho->nome,
-                "tipo" => strtoupper($request->tipo) ?? $aparelho->tipo,
+                "nome" => $request->nome ? strtoupper($request->nome) : $aparelho->nome,
+                "tipo" => $request->tipo ? strtoupper($request->tipo) : $aparelho->tipo,
                 "cliente_id" => $request->cliente_id ?? $aparelho->cliente_id,
             ]);
 

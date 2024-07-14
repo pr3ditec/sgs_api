@@ -111,10 +111,10 @@ class ClienteController extends Controller
 
             $cliente = Cliente::findOrFail($id);
             $cliente->update([
-                'nome' => strtoupper($request->nome) ?? $cliente->nome,
-                'logradouro' => strtoupper($request->logradouro) ?? $cliente->logradouro,
+                'nome' => $request->nome ? strtoupper($request->nome) : $cliente->nome,
+                'logradouro' => $request->logradouro ? strtoupper($request->logradouro) : $cliente->logradouro,
                 'cep' => $request->cep ?? $cliente->cep,
-                'complemento' => strtoupper($request->complemento) ?? $cliente->complemento,
+                'complemento' => $request->complemento ? strtoupper($request->complemento) : $cliente->complemento,
                 'numero' => $request->numero ?? $cliente->numero,
                 'cidade_id' => $request->cidade_id ?? $cliente->cidade_id,
             ]);

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('ordem_servico', function (Blueprint $table) {
             $table->id();
             $table->string("numero", 10)->nullable();
-            $table->boolean("concluido");
-            $table->boolean("recebido");
+            $table->boolean("concluido")->default(false);
+            $table->boolean("recebido")->default(false);
             $table->foreignId("cliente_id")->references("id")->on("cliente");
             $table->foreignId("usuario_id")->references("id")->on("usuario");
             $table->timestamps();

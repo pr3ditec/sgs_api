@@ -40,17 +40,18 @@ class BaseRequest extends FormRequest
     public function responseMessages(): array
     {
         return [
-            'required' => 'O :attribute não pode estar vazio',
-            'max' => 'O :attribute não pode exceder :max caracteres',
-            'min' => 'O :attribute nâo pode ser menor que :min caracteres',
-            'boolean' => 'O :attribute precisa ser do true/false',
-            'exists' => 'O :attribute não existe',
-            'unique' => 'O :attribute já existe',
-            'email' => 'O :attribute precisa ser um email válido',
-            'digits' => 'O :attribute precisa ter :digits digitos',
-            'numeric' => 'O :attribute precisa ser do tipo numérico',
-            'alpha_num' => 'O :attribute precisa ser somente letras',
-            'prohibits' => 'O :attribute bloqueia os campos :fields'
+            'required' => 'O atributo :attribute não pode estar vazio',
+            'max' => 'O atributo :attribute não pode exceder :max caracteres',
+            'min' => 'O atributo :attribute nâo pode ser menor que :min caracteres',
+            'boolean' => 'O atributo :attribute precisa ser do true/false',
+            'exists' => 'O atributo :attribute não existe',
+            'unique' => 'O atributo :attribute já existe',
+            'email' => 'O atributo :attribute precisa ser um email válido',
+            'digits' => 'O atributo s:attribute precisa ter :digits digitos',
+            'numeric' => 'O atributo :attribute precisa ser do tipo numérico',
+            'alpha_num' => 'O atributo :attribute precisa ser somente letras',
+            'prohibits' => 'O atributo :attribute bloqueia os campos :fields',
+            'array' => 'O atributo :attribute precisa ser um array',
         ];
     }
 }

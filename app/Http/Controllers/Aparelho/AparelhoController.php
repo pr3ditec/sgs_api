@@ -49,7 +49,11 @@ class AparelhoController extends Controller
     {
         try {
 
-            $aparelho = Aparelho::create($request->validated());
+            $aparelho = Aparelho::create([
+                "nome" => strtoupper($request->nome),
+                "tipo" => strtoupper($request->tipo),
+                "cliente_id" => $request->cliente_id,
+            ]);
 
             return Response::send(200, true, 'store-device-success', $aparelho);
         } catch (Exception $e) {
@@ -62,15 +66,14 @@ class AparelhoController extends Controller
     {
         try {
 
-            if ($request->id != $id) {
-
-                return Response::send(404, false, 'update-data-corupted');
-            }
-
             $aparelho = Aparelho::findOrFail($id);
-            $aparelho->update($request->validated());
+            $aparelho->update([
+                "nome" => strtoupper($request->nome) ?? $aparelho->nome,
+                "tipo" => strtoupper($request->tipo) ?? $aparelho->tipo,
+                "cliente_id" => $request->cliente_id ?? $aparelho->cliente_id,
+            ]);
 
-            return Response::send(200, 'update-device-success', $aparelho);
+            return Response::send(200, true, 'update-device-success', $aparelho);
 
         } catch (ModelNotFoundException $e) {
             return Response::send(404, false, 'device-not-found');

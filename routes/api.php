@@ -9,6 +9,7 @@ use App\Http\Controllers\Servicos\ItemOsServicoController;
 use App\Http\Controllers\Servicos\OrdemServicoController;
 use App\Http\Controllers\Telefone\TelefoneController;
 use App\Http\Controllers\Usuario\UsuarioController;
+use App\Http\Middleware\AuthToken;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,13 +24,17 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post("login", [LoginController::class, 'login']);
-Route::post("logout", [LoginController::class, 'logout']);
 
-Route::apiResource("usuario", UsuarioController::class);
-Route::apiResource("cliente", ClienteController::class);
-Route::apiResource("aparelho", AparelhoController::class);
-Route::apiResource("cidade", CidadeController::class);
-Route::apiResource("telefone", TelefoneController::class);
-Route::apiResource("ordem-servico", OrdemServicoController::class);
-Route::apiResource('item-os', ItemOsEquipamentoController::class);
-Route::apiResource("servico-os", ItemOsServicoController::class);
+Route::middleware(AuthToken::class)->group(function () {
+
+    Route::post("logout", [LoginController::class, 'logout']);
+
+    Route::apiResource("usuario", UsuarioController::class);
+    Route::apiResource("cliente", ClienteController::class);
+    Route::apiResource("aparelho", AparelhoController::class);
+    Route::apiResource("cidade", CidadeController::class);
+    Route::apiResource("telefone", TelefoneController::class);
+    Route::apiResource("ordem-servico", OrdemServicoController::class);
+    Route::apiResource('item-os', ItemOsEquipamentoController::class);
+    Route::apiResource("servico-os", ItemOsServicoController::class);
+});

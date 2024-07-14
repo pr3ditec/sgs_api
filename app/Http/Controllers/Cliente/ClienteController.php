@@ -61,10 +61,10 @@ class ClienteController extends Controller
             DB::beginTransaction();
 
             $cliente = Cliente::create([
-                'nome' => $request->nome,
-                'logradouro' => $request->logradouro,
+                'nome' => strtoupper($request->nome),
+                'logradouro' => strtoupper($request->logradouro),
                 'cep' => $request->cep,
-                'complemento' => $request->complemento,
+                'complemento' => strtoupper($request->complemento),
                 'numero' => $request->numero,
                 'cidade_id' => $request->cidade_id,
             ]);
@@ -111,10 +111,10 @@ class ClienteController extends Controller
 
             $cliente = Cliente::findOrFail($id);
             $cliente->update([
-                'nome' => $request->nome ?? $cliente->nome,
-                'logradouro' => $request->logradouro ?? $cliente->logradouro,
+                'nome' => strtoupper($request->nome) ?? $cliente->nome,
+                'logradouro' => strtoupper($request->logradouro) ?? $cliente->logradouro,
                 'cep' => $request->cep ?? $cliente->cep,
-                'complemento' => $request->complemento ?? $cliente->complemento,
+                'complemento' => strtoupper($request->complemento) ?? $cliente->complemento,
                 'numero' => $request->numero ?? $cliente->numero,
                 'cidade_id' => $request->cidade_id ?? $cliente->cidade_id,
             ]);

@@ -9,6 +9,7 @@ use App\Http\Requests\Usuario\CriarUsuarioRequest;
 use App\Models\Usuario;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -50,9 +51,13 @@ class UsuarioController extends Controller
     {
         try {
 
-            $usuario = Usuario::create($request->validated());
+            $usuario = Usuario::create([
+                "nome" => strtoupper($request->nome),
+                "email" => $request->email,
+                "senha" => Hash::make($request->senha),
+            ]);
 
-            return Response::send(200, true, 'store-user-success', $usuario);
+            return Response::send(200, true, 'store-user-success');
         } catch (Exception $e) {
 
             return Response::send(400, false, 'store-user-error', $e->getMessage());

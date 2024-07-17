@@ -34,7 +34,7 @@ class AuthController extends Controller
             } else {
                 $login = Login::create([
                     "usuario_id" => $usuario->id,
-                    "token" => Token::make($usuario),
+                    "token" => Token::make($usuario, ["usuario.index", ["usuario.show"]]),
                 ]);
             }
 

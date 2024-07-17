@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\PermissionHandler;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Usuario\AlterarUsuarioRequest;
 use App\Http\Requests\Usuario\CriarUsuarioRequest;
@@ -16,6 +17,8 @@ class UsuarioController extends Controller
 
     public function index()
     {
+        PermissionHandler::exists('usuario.index');
+
         try {
 
             $usuario = Usuario::getAll('usuario');

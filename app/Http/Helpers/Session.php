@@ -10,7 +10,7 @@ class Session
         session([$key => $value]);
     }
 
-    public static function getByKey(string $key): mixed
+    public static function getByKey(string $key): array
     {
         return session($key);
     }

@@ -3,10 +3,13 @@
 namespace App\Http\Middleware;
 
 use App\Http\Helpers\Response as HelpersResponse;
+use App\Http\Helpers\Session;
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthToken
 {
@@ -17,12 +20,20 @@ class AuthToken
      */
     public function handle(Request $request, Closure $next): Response
     {
+        try {
+            $token = JWTAuth::parseToken();
+            $token_payload = $token->getPayload();
+            
+            Session::store('credentials', $token_payload->get('credentials'));
 
-        if (!DB::table('login')->where('token', '=', $request->header('Authorization'))->exists()) {
+            return $next($request);
+        } catch (JWTException $e) {
 
-            return HelpersResponse::send(401, false, 'not-authorized');
+            return HelpersResponse::send(402, false, "not-authorized");
+        } catch (Exception $e) {
+
+            return HelpersResponse::send(400, false, "authroziation-error", $e->getMessage());
         }
 
-        return $next($request);
     }
 }

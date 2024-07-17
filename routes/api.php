@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Aparelho\AparelhoController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cidade\CidadeController;
 use App\Http\Controllers\Cliente\ClienteController;
-use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Servicos\ItemOsEquipamentoController;
 use App\Http\Controllers\Servicos\ItemOsServicoController;
 use App\Http\Controllers\Servicos\OrdemServicoController;
@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::post("login", [LoginController::class, 'login']);
+Route::post("login", [AuthController::class, 'login']);
 
 Route::middleware(AuthToken::class)->group(function () {
 
-    Route::post("logout", [LoginController::class, 'logout']);
+    Route::post("logout", [AuthController::class, 'logout']);
 
     Route::apiResource("usuario", UsuarioController::class);
     Route::apiResource("cliente", ClienteController::class);

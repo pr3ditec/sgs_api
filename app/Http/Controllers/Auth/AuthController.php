@@ -8,9 +8,9 @@ use App\Http\Helpers\Token;
 use App\Http\Requests\Auth\AuthRequest;
 use App\Models\Login;
 use App\Models\Usuario;
+use App\Models\UsuarioPermissao;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -27,16 +27,12 @@ class AuthController extends Controller
                 throw new Exception();
             }
 
-            $old_login = DB::table('login')->where('usuario_id', '=', $usuario->id)->first();
-            if ($old_login) {
-                unset($old_login->id);
-                $login = $old_login;
-            } else {
-                $login = Login::create([
-                    "usuario_id" => $usuario->id,
-                    "token" => Token::make($usuario, ["usuario.index", "usuario.show"]),
-                ]);
-            }
+            $usuario_permissao = UsuarioPermissao::getUserPermission($usuario->id);
+
+            $login = Login::create([
+                "usuario_id" => $usuario->id,
+                "token" => Token::make($usuario, $usuario_permissao),
+            ]);
 
             return Response::send(200, true, 'login-success', $login);
         } catch (Exception $e) {

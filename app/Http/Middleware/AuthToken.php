@@ -23,7 +23,7 @@ class AuthToken
         try {
             $token = JWTAuth::parseToken();
             $token_payload = $token->getPayload();
-            
+
             Session::store('credentials', $token_payload->get('credentials'));
 
             return $next($request);

@@ -38,6 +38,8 @@ class UsuarioController extends Controller
 
     public function show(int $id)
     {
+        PermissionHandler::exists('usuario.show');
+
         try {
 
             $usuario = Usuario::findOrFail($id);
@@ -52,6 +54,8 @@ class UsuarioController extends Controller
 
     public function store(CriarUsuarioRequest $request)
     {
+        PermissionHandler::exists('usuario.store');
+
         try {
 
             $usuario = Usuario::create([
@@ -69,6 +73,8 @@ class UsuarioController extends Controller
 
     public function update(AlterarUsuarioRequest $request, int $id)
     {
+        PermissionHandler::exists('usuario.update');
+
         try {
 
             if ($request->id != $id) {
@@ -90,6 +96,8 @@ class UsuarioController extends Controller
 
     public function destroy(int $id)
     {
+        PermissionHandler::exists('usuario.destroy');
+
         try {
             $usuario = Usuario::findOrFail($id);
             $usuario->delete();

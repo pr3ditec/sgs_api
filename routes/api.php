@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Aparelho\AparelhoController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\PermissaoController;
+use App\Http\Controllers\Auth\UsuarioPermissaoController;
 use App\Http\Controllers\Cidade\CidadeController;
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Servicos\ItemOsEquipamentoController;
@@ -37,4 +39,6 @@ Route::middleware(AuthToken::class)->group(function () {
     Route::apiResource("ordem-servico", OrdemServicoController::class);
     Route::apiResource('item-os', ItemOsEquipamentoController::class);
     Route::apiResource("servico-os", ItemOsServicoController::class);
+    Route::apiResource('permissao', PermissaoController::class);
+    Route::apiResource('usuario-permissao', UsuarioPermissaoController::class);
 });

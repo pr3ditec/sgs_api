@@ -29,7 +29,7 @@ Route::post("login", [AuthController::class, 'login']);
 
 Route::middleware(AuthToken::class)->group(function () {
 
-    Route::post("logout", [AuthController::class, 'logout']);
+    Route::post("logout", [AuthController::class, 'logout'])->name('logout.logout');
 
     Route::apiResource("usuario", UsuarioController::class);
     Route::apiResource("cliente", ClienteController::class);

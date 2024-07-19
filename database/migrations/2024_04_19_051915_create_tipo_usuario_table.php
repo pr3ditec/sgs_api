@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('tipo_usuario', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 100);
-            $table->string('email', 50)->unique();
-            $table->string('senha', 70);
-            $table->foreignId('tipo_usuario_id')->references('id')->on('tipo_usuario')->onDelete('CASCADE');
+            $table->string('nome', 50)->unique();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('tipo_usuario');
     }
 };

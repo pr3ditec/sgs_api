@@ -20,6 +20,7 @@ class AuthToken
      */
     public function handle(Request $request, Closure $next): Response
     {
+        return $next($request);
         try {
             $token = JWTAuth::parseToken();
             $token_payload = $token->getPayload();

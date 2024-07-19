@@ -15,13 +15,20 @@ class UsuarioPermissao extends Model
     protected $table = "usuario_permissao";
     protected $guarded = [];
 
-    public static function getUserPermission(int $usuario_id)
+    public static function getUserPermissionArray(int $usuario_id): array
     {
-        return DB::table('usuario_permissao')
+        $usuario_permissao = DB::table('usuario_permissao')
             ->leftJoin('permissao', 'permissao.id', '=', 'usuario_permissao.permissao_id')
             ->where('usuario_permissao.usuario_id', '=', $usuario_id)
-            ->select(['permissao.nome as permissao', 'permissao.id as id'])
+            ->select('permissao.nome as permissao')
             ->get();
+
+        $usuario_permissao_array = [];
+        foreach ($usuario_permissao as $key => $value) {
+            $usuario_permissao_array[$key] = $value->permissao;
+        }
+
+        return $usuario_permissao_array;
     }
 
 }

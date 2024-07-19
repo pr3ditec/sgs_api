@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Usuario;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\PermissionHandler;
 use App\Http\Helpers\Response;
+use App\Http\Requests\Cidade\CriarCidadeRequest;
 use App\Http\Requests\Usuario\AlterarUsuarioRequest;
 use App\Http\Requests\Usuario\CriarUsuarioRequest;
 use App\Models\Usuario;

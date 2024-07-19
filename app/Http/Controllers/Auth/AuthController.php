@@ -27,7 +27,7 @@ class AuthController extends Controller
                 throw new Exception();
             }
 
-            $usuario_permissao = UsuarioPermissao::getUserPermission($usuario->id);
+            $usuario_permissao = UsuarioPermissao::getUserPermissionArray($usuario->id);
 
             $login = Login::create([
                 "usuario_id" => $usuario->id,

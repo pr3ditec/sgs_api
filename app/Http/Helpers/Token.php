@@ -10,7 +10,7 @@ use Tymon\JWTAuth\Facades\JWTFactory;
 class Token
 {
 
-    public static function make(Usuario $usuario, Collection $permissoes): string
+    public static function make(Usuario $usuario, array $permissoes): string
     {
         $credentials = [
             'sub' => $usuario->id,

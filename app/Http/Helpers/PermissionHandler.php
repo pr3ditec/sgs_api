@@ -9,7 +9,7 @@ class PermissionHandler
     public static function exists(string $key): bool
     {
         $credentials = Session::getByKey('credentials');
-
+        
         if (in_array($key, $credentials)) {
 
             return true;

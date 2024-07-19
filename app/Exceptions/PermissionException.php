@@ -9,6 +9,6 @@ class PermissionException extends Exception
 {
     public function render($request)
     {
-        return Response::send(402, false, 'permission-error');
+        return Response::send(402, false, 'user-permission-error');
     }
 }

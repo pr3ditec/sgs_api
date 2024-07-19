@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Helpers\PermissionHandler;
 use App\Http\Helpers\Response as HelpersResponse;
-use App\Http\Helpers\Session;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
@@ -24,15 +24,15 @@ class AuthToken
             $token = JWTAuth::parseToken();
             $token_payload = $token->getPayload();
 
-            Session::store('credentials', $token_payload->get('credentials'));
+            PermissionHandler::exists($token_payload->get('credentials'), $request->route()->getName());
 
             return $next($request);
         } catch (JWTException $e) {
 
-            return HelpersResponse::send(402, false, "not-authorized");
+            return HelpersResponse::send(402, false, "token-not-authorized");
         } catch (Exception $e) {
 
-            return HelpersResponse::send(400, false, "authroziation-error", $e->getMessage());
+            return HelpersResponse::send(400, false, "authroziation-token-error", $e->getMessage());
         }
 
     }

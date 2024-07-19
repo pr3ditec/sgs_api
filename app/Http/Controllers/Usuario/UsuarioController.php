@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
-use App\Http\Helpers\PermissionHandler;
 use App\Http\Helpers\Response;
-use App\Http\Requests\Cidade\CriarCidadeRequest;
 use App\Http\Requests\Usuario\AlterarUsuarioRequest;
 use App\Http\Requests\Usuario\CriarUsuarioRequest;
 use App\Models\Usuario;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        PermissionHandler::exists('usuario.index');
 
         try {
 
@@ -39,7 +37,6 @@ class UsuarioController extends Controller
 
     public function show(int $id)
     {
-        PermissionHandler::exists('usuario.show');
 
         try {
 
@@ -55,7 +52,6 @@ class UsuarioController extends Controller
 
     public function store(CriarUsuarioRequest $request)
     {
-        PermissionHandler::exists('usuario.store');
 
         try {
 
@@ -74,7 +70,6 @@ class UsuarioController extends Controller
 
     public function update(AlterarUsuarioRequest $request, int $id)
     {
-        PermissionHandler::exists('usuario.update');
 
         try {
 
@@ -97,7 +92,6 @@ class UsuarioController extends Controller
 
     public function destroy(int $id)
     {
-        PermissionHandler::exists('usuario.destroy');
 
         try {
             $usuario = Usuario::findOrFail($id);

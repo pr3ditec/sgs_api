@@ -9,15 +9,13 @@ use App\Http\Requests\Usuario\CriarUsuarioRequest;
 use App\Models\Usuario;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
-
         try {
 
             $usuario = Usuario::getAll('usuario');
@@ -37,7 +35,6 @@ class UsuarioController extends Controller
 
     public function show(int $id)
     {
-
         try {
 
             $usuario = Usuario::findOrFail($id);
@@ -52,7 +49,6 @@ class UsuarioController extends Controller
 
     public function store(CriarUsuarioRequest $request)
     {
-
         try {
 
             $usuario = Usuario::create([
@@ -70,7 +66,6 @@ class UsuarioController extends Controller
 
     public function update(AlterarUsuarioRequest $request, int $id)
     {
-
         try {
 
             if ($request->id != $id) {
@@ -92,7 +87,6 @@ class UsuarioController extends Controller
 
     public function destroy(int $id)
     {
-
         try {
             $usuario = Usuario::findOrFail($id);
             $usuario->delete();

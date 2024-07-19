@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Usuario;
+namespace App\Http\Requests\TipoUsuario;
 
-use App\Http\Requests\BaseRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CriarUsuarioRequest extends BaseRequest
+class AlterarTipoUsuarioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,10 +22,7 @@ class CriarUsuarioRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|max:100',
-            'email' => 'required|email|max:50|unique:usuario,email',
-            'senha' => 'required|max:70',
-            'tipo_usuario_id' => 'required|int|exists:tipo_usuario,id',
+            "nome" => "max:50|unique:tipo_usuario,nome",
         ];
     }
 

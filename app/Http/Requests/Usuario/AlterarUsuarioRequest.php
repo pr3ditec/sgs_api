@@ -25,6 +25,7 @@ class AlterarUsuarioRequest extends BaseRequest
             'nome' => 'max:100',
             'email' => 'email|max:50|unique:usuario,email',
             'senha' => 'max:70',
+            'tipo_usuario_id' => 'int|exists:tipo_usuario,id',
         ];
     }
 

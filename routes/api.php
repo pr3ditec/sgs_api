@@ -10,6 +10,7 @@ use App\Http\Controllers\Servicos\ItemOsEquipamentoController;
 use App\Http\Controllers\Servicos\ItemOsServicoController;
 use App\Http\Controllers\Servicos\OrdemServicoController;
 use App\Http\Controllers\Telefone\TelefoneController;
+use App\Http\Controllers\TipoUsuario\TipoUsuarioController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use App\Http\Middleware\AuthToken;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::middleware(AuthToken::class)->group(function () {
     Route::post("logout", [AuthController::class, 'logout'])->name('logout.logout');
 
     Route::apiResource("usuario", UsuarioController::class);
+    Route::apiResource('tipo-usuario', TipoUsuarioController::class);
     Route::apiResource("cliente", ClienteController::class);
     Route::apiResource("aparelho", AparelhoController::class);
     Route::apiResource("cidade", CidadeController::class);

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TipoUsuarioSeeder extends Seeder
 {
@@ -17,6 +18,7 @@ class TipoUsuarioSeeder extends Seeder
             ["nome" => "ASSINANTE", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
         ];
 
+        DB::table('tipo_usuario')->insert($tipo_usuario);
     }
 
 }

@@ -60,6 +60,12 @@ class PermissaoSeeder extends Seeder
             ["nome" => "usuario-permissao.show", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["nome" => "usuario-permissao.store", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["nome" => "usuario-permissao.destroy", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "tipo-usuario.index", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "tipo-usuario.show", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "tipo-usuario.store", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "tipo-usuario.update", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "tipo-usuario.destroy", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+
             ["nome" => "logout.logout", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
 
         ];

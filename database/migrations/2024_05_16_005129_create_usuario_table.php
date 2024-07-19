@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome', 100);
             $table->string('email', 50)->unique();
             $table->string('senha', 70);
-            $table->foreignId('tipo_usuario_id')->references('id')->on('tipo_usuario')->onDelete('CASCADE');
+            $table->foreignId('tipo_usuario_id')->references('id')->on('tipo_usuario');
             $table->timestamps();
         });
     }

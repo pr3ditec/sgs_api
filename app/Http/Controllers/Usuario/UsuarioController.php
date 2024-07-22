@@ -18,7 +18,7 @@ class UsuarioController extends Controller
     {
         try {
 
-            $usuario = Usuario::getAll('usuario');
+            $usuario = Usuario::getAllUserData();
 
             if ($usuario->isEmpty()) {
 
@@ -54,6 +54,7 @@ class UsuarioController extends Controller
             $usuario = Usuario::create([
                 "nome" => strtoupper($request->nome),
                 "email" => $request->email,
+                "tipo_usuario_id" => $request->tipo_usuario_id,
                 "senha" => Hash::make($request->senha),
             ]);
 

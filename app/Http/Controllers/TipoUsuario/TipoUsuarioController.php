@@ -39,7 +39,7 @@ class TipoUsuarioController extends Controller
 
             return Response::send(200, true, 'show-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'user-not-found');
+            return Response::send(404, false, 'type-user-not-found');
         } catch (Exception $e) {
             return Response::send(400, false, 'show-type-user-error', $e->getMessage());
         }
@@ -49,7 +49,9 @@ class TipoUsuarioController extends Controller
     {
         try {
 
-            $tipo_usuario = TipoUsuario::create($request->validated());
+            $tipo_usuario = TipoUsuario::create([
+                "nome" => mb_strtoupper($request->nome),
+            ]);
 
             return Response::send(200, true, 'store-type-user-success');
         } catch (Exception $e) {
@@ -68,12 +70,14 @@ class TipoUsuarioController extends Controller
             }
 
             $tipo_usuario = TipoUsuario::findOrFail($id);
-            $tipo_usuario->update($request->validated());
+            $tipo_usuario->update([
+                "nome" => mb_strtoupper($request->nome),
+            ]);
 
             return Response::send(200, 'update-type-user-success', $tipo_usuario);
 
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'user-not-found');
+            return Response::send(404, false, 'type-user-not-found');
         } catch (Exception $e) {
             return Response::send(400, false, 'update-type-user-error', $e->getMessage());
         }
@@ -87,7 +91,7 @@ class TipoUsuarioController extends Controller
 
             return Response::send(200, true, 'destroy-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'user-not-found');
+            return Response::send(404, false, 'type-user-not-found');
         } catch (Exception $e) {
             return Response::send(400, false, 'destroy-type-user-error', $e->getMessage());
         }

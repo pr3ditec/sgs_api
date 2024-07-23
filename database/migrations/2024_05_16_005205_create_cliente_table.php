@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("complemento", 100)->nullable();
             $table->string("numero", 5);
             $table->foreignId("cidade_id")->references("id")->on("cidade");
+            $table->foreignId('usuario_id')->references('id')->on('usuario');
             $table->timestamps();
         });
     }

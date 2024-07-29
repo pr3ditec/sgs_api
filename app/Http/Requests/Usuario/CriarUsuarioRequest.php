@@ -24,7 +24,7 @@ class CriarUsuarioRequest extends BaseRequest
         return [
             'nome' => 'required|max:100',
             'email' => 'required|email|max:50|unique:usuario,email',
-            'senha' => 'required|max:70',
+            'senha' => 'required|min:8|max:70',
             'tipo_usuario_id' => 'required|int|exists:tipo_usuario,id',
         ];
     }

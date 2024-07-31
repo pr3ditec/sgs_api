@@ -24,7 +24,6 @@ class TipoUsuarioController extends Controller
             }
 
             return Response::send(200, true, 'index-type-user-success', $tipo_usuario);
-
         } catch (Exception $e) {
 
             return Response::send(400, false, 'index-type-user-error', $e->getMessage());
@@ -39,8 +38,10 @@ class TipoUsuarioController extends Controller
 
             return Response::send(200, true, 'show-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'type-user-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'show-type-user-error', $e->getMessage());
         }
     }
@@ -75,10 +76,11 @@ class TipoUsuarioController extends Controller
             ]);
 
             return Response::send(200, 'update-type-user-success', $tipo_usuario);
-
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'type-user-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'update-type-user-error', $e->getMessage());
         }
     }
@@ -91,8 +93,10 @@ class TipoUsuarioController extends Controller
 
             return Response::send(200, true, 'destroy-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'type-user-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'destroy-type-user-error', $e->getMessage());
         }
     }

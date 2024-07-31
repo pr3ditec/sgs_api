@@ -26,7 +26,6 @@ class UsuarioController extends Controller
             }
 
             return Response::send(200, true, 'index-user-success', $usuario);
-
         } catch (Exception $e) {
 
             return Response::send(400, false, 'index-user-error', $e->getMessage());
@@ -41,8 +40,10 @@ class UsuarioController extends Controller
 
             return Response::send(200, true, 'show-user-success', $usuario);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'user-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'show-user-error', $e->getMessage());
         }
     }
@@ -78,10 +79,11 @@ class UsuarioController extends Controller
             $usuario->update($request->validated());
 
             return Response::send(200, 'update-user-success', $usuario);
-
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'user-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'update-user-error', $e->getMessage());
         }
     }
@@ -94,8 +96,10 @@ class UsuarioController extends Controller
 
             return Response::send(200, true, 'destroy-user-success', $usuario);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'user-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'destroy-user-error', $e->getMessage());
         }
     }

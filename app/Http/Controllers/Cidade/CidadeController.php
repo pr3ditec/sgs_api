@@ -24,7 +24,6 @@ class CidadeController extends Controller
             }
 
             return Response::send(200, true, 'index-city-success', $cidade);
-
         } catch (Exception $e) {
 
             return Response::send(400, false, 'index-city-error', $e->getMessage());
@@ -49,7 +48,10 @@ class CidadeController extends Controller
     {
         try {
 
-            $cidade = Cidade::create($request->validated());
+            $cidade = Cidade::create([
+                "nome" => mb_strtoupper($request->nome),
+                "uf" => mb_strtoupper($request->uf),
+            ]);
 
             return Response::send(200, true, 'store-city-success', $cidade);
         } catch (Exception $e) {

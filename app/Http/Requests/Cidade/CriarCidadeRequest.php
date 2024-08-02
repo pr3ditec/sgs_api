@@ -23,7 +23,7 @@ class CriarCidadeRequest extends BaseRequest
     {
         return [
             'nome' => 'required|max:30',
-            'uf' => 'required|size:2|alpha_num:ascii|uppercase',
+            'uf' => 'required|size:2|alpha_num:ascii',
         ];
     }
 

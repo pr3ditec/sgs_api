@@ -16,7 +16,7 @@ class AparelhoController extends Controller
     {
         try {
 
-            $aparelho = Aparelho::getAll('aparelho');
+            $aparelho = Aparelho::getAllData();
 
             if ($aparelho->isEmpty()) {
 

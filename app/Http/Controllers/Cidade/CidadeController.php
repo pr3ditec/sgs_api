@@ -38,8 +38,10 @@ class CidadeController extends Controller
 
             return Response::send(200, true, 'show-city-success', $cidade);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'city-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'show-city-error', $e->getMessage());
         }
     }
@@ -73,10 +75,11 @@ class CidadeController extends Controller
             $cidade->update($request->validated());
 
             return Response::send(200, 'update-city-success', $cidade);
-
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'city-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'update-city-error', $e->getMessage());
         }
     }
@@ -89,8 +92,10 @@ class CidadeController extends Controller
 
             return Response::send(200, true, 'destroy-city-success', $cidade);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'city-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'destroy-city-error', $e->getMessage());
         }
     }

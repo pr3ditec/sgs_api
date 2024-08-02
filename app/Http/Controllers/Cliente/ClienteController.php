@@ -28,7 +28,6 @@ class ClienteController extends Controller
             }
 
             return Response::send(200, true, 'index-client-success', $cliente);
-
         } catch (Exception $e) {
 
             return Response::send(400, false, 'index-client-error', $e->getMessage());
@@ -49,8 +48,10 @@ class ClienteController extends Controller
                 "pessoa_fisica" => $pessoa_fisica ?? [],
             ]);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'client-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'show-user-error', $e->getMessage());
         }
     }
@@ -137,7 +138,6 @@ class ClienteController extends Controller
             DB::commit();
 
             return Response::send(200, 'update-client-success', $cliente);
-
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
 
@@ -157,8 +157,10 @@ class ClienteController extends Controller
 
             return Response::send(200, true, 'destroy-client-success', $cliente);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'client-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'destroy-client-error', $e->getMessage());
         }
     }

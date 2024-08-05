@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Cliente\AlterarClienteRequest;
 use App\Http\Requests\Cliente\CriarClienteRequest;
+use App\Models\Aparelho;
 use App\Models\Cliente;
 use App\Models\PessoaFisica;
 use App\Models\PessoaJuridica;
@@ -41,11 +42,13 @@ class ClienteController extends Controller
             $cliente = Cliente::findOrFail($id);
             $pessoa_fisica = PessoaFisica::where("cliente_id", "=", $cliente->id)->get();
             $pessoa_juridica = PessoaJuridica::where("cliente_id", "=", $cliente->id)->get();
+            $aparelhos = Aparelho::where("cliente_id", "=", $cliente->id)->get();
 
             return Response::send(200, true, 'show-client-success', [
                 "cliente" => $cliente,
                 "pessoa_juridica" => $pessoa_juridica ?? [],
                 "pessoa_fisica" => $pessoa_fisica ?? [],
+                "aparelhos" => $aparelhos,
             ]);
         } catch (ModelNotFoundException $e) {
 

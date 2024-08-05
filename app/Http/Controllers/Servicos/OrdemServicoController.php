@@ -53,8 +53,6 @@ class OrdemServicoController extends Controller
             $equipamentos = $request->only("equipamentos");
             $servicos = $request->only("servicos");
 
-            return $request->validated();
-
             DB::beginTransaction();
 
             $ordem_servico_store = OrdemServico::create($ordem_servico);

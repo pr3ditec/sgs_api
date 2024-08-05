@@ -68,6 +68,7 @@ class ClienteController extends Controller
                 'complemento' => strtoupper($request->complemento),
                 'numero' => $request->numero,
                 'cidade_id' => $request->cidade_id,
+                'usuario_id' => $request->usuario_id,
             ]);
 
             if (isset($request->cpf)) {

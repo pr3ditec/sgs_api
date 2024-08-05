@@ -32,6 +32,7 @@ class CriarClienteRequest extends BaseRequest
             'cnpj' => 'digits:14|numeric|unique:pessoa_juridica,cnpj|prohibits:cpf',
             'inscricao_municipal' => 'digits:15|numeric|unique:pessoa_juridica,inscricao_municipal|prohibits:cpf',
             'inscricao_estadual' => 'digits:15|numeric|unique:pessoa_juridica,inscricao_estadual|prohibits:cpf',
+            'usuario_id' => 'numeric|exists:usuario,id',
         ];
     }
 

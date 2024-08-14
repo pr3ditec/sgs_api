@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('item_os_equipamento', function (Blueprint $table) {
             $table->id();
-            $table->integer("quantidade");
-            $table->float("preco_unitario");
             $table->foreignId("ordem_servico_id")->references("id")->on("ordem_servico");
             $table->foreignId("aparelho_id")->references("id")->on("aparelho");
             $table->timestamps();

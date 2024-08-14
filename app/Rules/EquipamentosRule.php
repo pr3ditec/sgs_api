@@ -33,14 +33,6 @@ class EquipamentosRule implements ValidationRule
                 $fail("O atributo :attribute precisa ter a chave 'preco_unitario'");
             }
 
-            if (!array_key_exists("ordem_servico_id", $val)) {
-
-                $fail("O atributo :attribute precisa ter a chave 'ordem_servico_id'");
-            } else if (!DB::table('ordem_servico')->where('id', '=', $val['ordem_servico_id'])->exists()) {
-
-                $fail("O campo ordem_servico_id precisa existir na base de dados");
-            }
-
             if (!array_key_exists("aparelho_id", $val)) {
 
                 $fail("O atributo :attribute precisa ter a chave 'aparelho_id'");

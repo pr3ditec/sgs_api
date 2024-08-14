@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_os_servico', function (Blueprint $table) {
+        Schema::create('servico', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("servico_id")->reference("id")->on('servico')->onDelete('CASCADE');
-            $table->foreignId("item_os_equipamento_id")->references("id")->on("item_os_equipamento")->onDelete("CASCADE");
+            $table->string("descricao", 100);
+            $table->float("preco");
+            $table->foreignId('usuario_id')->references('id')->on('usuario')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_os_servico');
+        Schema::dropIfExists('servico');
     }
 };

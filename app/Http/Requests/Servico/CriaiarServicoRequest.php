@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\OrdemServico;
+namespace App\Http\Requests\Servico;
 
 use App\Http\Requests\BaseRequest;
-use App\Rules\EquipamentoServiceRule;
 
-class CriarOrdemServicoRequest extends BaseRequest
+class CriaiarServicoRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +22,11 @@ class CriarOrdemServicoRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'numero' => 'required|max:10',
-            'concluido' => 'required|boolean',
-            'recebido' => 'required|boolean',
-            'equipamentos_servicos' => ["required", new EquipamentoServiceRule()],
-            'cliente_id' => 'required|exists:cliente,id',
-            'usuario_id' => 'required|exists:usuario,id',
+            "usuario_id" => "required|integer|exists:usuario,id",
+            "preco" => "required|numeric",
+            "descricao" => "required|max:100"
         ];
     }
-
     public function messages(): array
     {
         return parent::responseMessages();

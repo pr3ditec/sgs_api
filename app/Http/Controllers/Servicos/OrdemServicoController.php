@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\OrdemServico\CriarOrdemServicoRequest;
 use App\Models\OrdemServico;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,6 @@ class OrdemServicoController extends Controller
             }
 
             return Response::send(200, true, 'index-os-success', $ordem_servico);
-
         } catch (Exception $e) {
 
             return Response::send(400, false, 'index-os-error', $e->getMessage());
@@ -49,22 +49,38 @@ class OrdemServicoController extends Controller
     {
         try {
 
-            $ordem_servico = $request->except(["equipamentos", "servicos"]);
-            $equipamentos = $request->only("equipamentos");
-            $servicos = $request->only("servicos");
+            $ordem_servico = $request->except(["equipamentos_servicos"]);
+            $equipamentos = (array) $request->only("equipamentos_servicos");
 
             DB::beginTransaction();
 
-            $ordem_servico_store = OrdemServico::create($ordem_servico);
+            $ordem_servico_store = OrdemServico::create([
+                "numero" => $request->numero,
+                "concluido" => $request->concluido,
+                "recebido" => $request->recebido,
+                "cliente_id" => $request->cliente_id,
+                "usuario_id" => $request->usuario_id,
+            ]);
 
-            foreach ($equipamentos as $equipamento) {
+            foreach ($equipamentos['equipamentos_servicos'] as $equipamento) {
 
-                DB::table('item_os_equipamento')->insert($equipamento);
-            }
+                $item_os_equipamento_id = DB::table('item_os_equipamento')->insertGetId([
+                    "ordem_servico_id" => $ordem_servico_store->id,
+                    "aparelho_id" => $equipamento['aparelho_id'],
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now(),
+                ]);
 
-            foreach ($servicos as $servico) {
+                foreach ($equipamento['servicos'] as $servico_id) {
 
-                DB::table('item_os_servico')->insert($servico);
+                    DB::table('item_os_servico')->insert([
+                        "servico_id" => $servico_id,
+                        "item_os_equipamento_id" => $item_os_equipamento_id,
+                        "created_at" => Carbon::now(),
+                        "updated_at" => Carbon::now(),
+                    ]);
+                }
+
             }
 
             DB::commit();
@@ -85,8 +101,10 @@ class OrdemServicoController extends Controller
 
             return Response::send(200, true, 'destroy-os-success', $ordem_servico);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'os-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'destroy-os-error', $e->getMessage());
         }
     }

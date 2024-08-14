@@ -21,6 +21,7 @@ class OrdemServico extends Model
         foreach ($ordem_servico as $key => $os) {
 
             $ordem_servico[$key]->equipamentos = ItemOsEquipamento::getAllServices($os->id);
+            $ordem_servico[$key]->cliente = Cliente::find($os->cliente_id);
         }
 
         return $ordem_servico;

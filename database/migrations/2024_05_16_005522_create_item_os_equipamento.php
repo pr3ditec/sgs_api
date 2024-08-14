@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('item_os_equipamento', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("ordem_servico_id")->references("id")->on("ordem_servico");
-            $table->foreignId("aparelho_id")->references("id")->on("aparelho");
+            $table->foreignId("ordem_servico_id")->references("id")->on("ordem_servico")->onDelete('CASCADE');
+            $table->foreignId("aparelho_id")->references("id")->on("aparelho")->onDelete('CASCADE');
             $table->timestamps();
         });
     }

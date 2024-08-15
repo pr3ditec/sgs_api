@@ -39,8 +39,10 @@ class OrdemServicoController extends Controller
 
             return Response::send(200, true, 'show-os-success', $ordem_servico);
         } catch (ModelNotFoundException $e) {
+
             return Response::send(404, false, 'os-not-found');
         } catch (Exception $e) {
+
             return Response::send(400, false, 'show-os-error', $e->getMessage());
         }
     }

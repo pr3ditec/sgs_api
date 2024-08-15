@@ -35,4 +35,17 @@ class OrdemServico extends Model
 
         return $ordem_servico;
     }
+
+    protected static function dataFormatedToCalendar()
+    {
+        return DB::table('ordem_servico')
+            ->leftJoin('cliente', 'cliente.id', '=', 'ordem_servico.cliente_id')
+            ->select([
+                'ordem_servico.id as id',
+                DB::raw('DATE(ordem_servico.created_at) as start'),
+                DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "green" ELSE "black" END AS "backgroundColor"'),
+                'cliente.nome as title',
+            ])
+            ->get();
+    }
 }

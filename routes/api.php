@@ -30,9 +30,10 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post("login", [AuthController::class, 'login']);
-Route::get('test', [TestController::class, 'getData']);
 
 Route::middleware(AuthToken::class)->group(function () {
+
+    Route::get('auth-check', [AuthController::class, 'check'])->name('auth.check');
 
     Route::post("logout", [AuthController::class, 'logout'])->name('logout.logout');
 

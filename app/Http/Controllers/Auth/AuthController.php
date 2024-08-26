@@ -24,7 +24,7 @@ class AuthController extends Controller
 
             if (!Hash::check($request->senha, $usuario->senha)) {
 
-                throw new Exception();
+                throw new Exception("usuario não cadastrado");
             }
 
             $usuario_permissao = UsuarioPermissao::getUserPermissionArray($usuario->id);
@@ -34,7 +34,15 @@ class AuthController extends Controller
                 "token" => Token::make($usuario, $usuario_permissao),
             ]);
 
-            return Response::send(200, true, 'login-success', $login);
+            return Response::send(200, true, 'login-success', [
+                "login" => $login,
+                "usuario" => [
+                    "id" => $usuario->id,
+                    "nome" => $usuario->nome,
+                    "email" => $usuario->email,
+                    "tipo" => $usuario->tipo_usuario_id,
+                ],
+            ]);
         } catch (Exception $e) {
 
             return Response::send(400, false, 'login-error', $e->getMessage());
@@ -44,14 +52,19 @@ class AuthController extends Controller
     {
         try {
 
-            $login = Login::where('token', '=', $request->header('Authorization'))->firstOrFail();
-            $login->delete();
+            // $login = Login::where('token', '=', $request->header('Authorization'))->firstOrFail();
+            // $login->delete();
 
             return Response::send(200, true, 'logout-success');
         } catch (Exception $e) {
 
             return Response::send(400, false, 'logout-error', $e->getMessage());
         }
+    }
+
+    public function check(Request $request)
+    {
+        return Response::send(200, true, 'check-success');
     }
 
 }

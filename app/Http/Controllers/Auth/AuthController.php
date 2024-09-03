@@ -6,53 +6,34 @@ use App\Enums\ResponseCode;
 use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
-use App\Http\Helpers\Token;
 use App\Http\Requests\Auth\AuthRequest;
 use App\Models\Login;
-use App\Models\TipoUsuario;
-use App\Models\Usuario;
-use App\Models\UsuarioPermissao;
+use App\Services\AuthService;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
 
+    private AuthService $authService;
+
+    public function __construct()
+    {
+        $this->authService = new AuthService();
+    }
+
     public function login(AuthRequest $request)
     {
         try {
-            $usuario = Usuario::where('email', '=', $request->email)->firstOrFail();
 
-            if (!Hash::check($request->senha, $usuario->senha)) {
+            $loginData = $this->authService->loginService($request->email, $request->senha);
 
-                throw new Exception("usuario não cadastrado");
-            }
-
-            $usuario_permissao = UsuarioPermissao::getUserPermissionArray($usuario->id);
-
-            $login = Login::create([
-                "usuario_id" => $usuario->id,
-                "token" => Token::make($usuario, $usuario_permissao),
-            ]);
-
-            $tipo_usuario = TipoUsuario::find($usuario->tipo_usuario_id);
-
-            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'login-success', [
-                "login" => $login,
-                "usuario" => [
-                    "id" => $usuario->id,
-                    "nome" => $usuario->nome,
-                    "email" => $usuario->email,
-                    "tipo" => $tipo_usuario->nome,
-                ],
-            ]);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'login-success', $loginData);
         } catch (Exception $e) {
 
-            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'login-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'login-error');
         }
     }
-    public function logout(Request $request)
+    public function logout()
     {
         try {
 

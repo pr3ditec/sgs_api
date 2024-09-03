@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
+use App\Http\Helpers\Response;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -30,11 +33,14 @@ class BaseRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            "status" => false,
-            "messageCode" => 'validation-error',
-            "list" => $validator->errors(),
-        ], 200));
+        throw new HttpResponseException(
+            Response::send(
+                ResponseCode::ValidationError,
+                ResponseStatus::Failed,
+                "validation-error",
+                $validator->errors()
+            )
+        );
     }
 
     public function responseMessages(): array

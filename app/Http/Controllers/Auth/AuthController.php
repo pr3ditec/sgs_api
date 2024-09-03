@@ -22,7 +22,6 @@ class AuthController extends Controller
     public function login(AuthRequest $request)
     {
         try {
-
             $usuario = Usuario::where('email', '=', $request->email)->firstOrFail();
 
             if (!Hash::check($request->senha, $usuario->senha)) {

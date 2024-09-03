@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Helpers\Token;
@@ -37,18 +39,18 @@ class AuthController extends Controller
 
             $tipo_usuario = TipoUsuario::find($usuario->tipo_usuario_id);
 
-            return Response::send(200, true, 'login-success', [
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'login-success', [
                 "login" => $login,
                 "usuario" => [
                     "id" => $usuario->id,
                     "nome" => $usuario->nome,
                     "email" => $usuario->email,
                     "tipo" => $tipo_usuario->nome,
-                ],  
+                ],
             ]);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'login-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'login-error', $e->getMessage());
         }
     }
     public function logout(Request $request)
@@ -58,16 +60,16 @@ class AuthController extends Controller
             // $login = Login::where('token', '=', $request->header('Authorization'))->firstOrFail();
             // $login->delete();
 
-            return Response::send(200, true, 'logout-success');
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'logout-success');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'logout-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'logout-error', $e->getMessage());
         }
     }
 
     public function check(Request $request)
     {
-        return Response::send(200, true, 'check-success');
+        return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'check-success');
     }
 
 }

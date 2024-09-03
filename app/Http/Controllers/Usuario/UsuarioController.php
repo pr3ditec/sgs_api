@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Usuario;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Usuario\AlterarUsuarioRequest;
@@ -22,13 +24,13 @@ class UsuarioController extends Controller
 
             if ($usuario->isEmpty()) {
 
-                return Response::send(404, false, 'index-user-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-user-empty');
             }
 
-            return Response::send(200, true, 'index-user-success', $usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-user-success', $usuario);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-user-error', $e->getMessage());
         }
     }
 
@@ -38,13 +40,13 @@ class UsuarioController extends Controller
 
             $usuario = Usuario::findOrFail($id);
 
-            return Response::send(200, true, 'show-user-success', $usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-user-success', $usuario);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'user-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'user-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'show-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-user-error', $e->getMessage());
         }
     }
 
@@ -59,10 +61,10 @@ class UsuarioController extends Controller
                 "senha" => Hash::make($request->senha),
             ]);
 
-            return Response::send(200, true, 'store-user-success');
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-user-success');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-user-error', $e->getMessage());
         }
     }
 
@@ -72,19 +74,19 @@ class UsuarioController extends Controller
 
             if ($request->id != $id) {
 
-                return Response::send(404, false, 'update-data-corupted');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'update-data-corupted');
             }
 
             $usuario = Usuario::findOrFail($id);
             $usuario->update($request->validated());
 
-            return Response::send(200, 'update-user-success', $usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-user-success', $usuario);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'user-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'user-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'update-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Success, 'update-user-error', $e->getMessage());
         }
     }
 
@@ -94,13 +96,13 @@ class UsuarioController extends Controller
             $usuario = Usuario::findOrFail($id);
             $usuario->delete();
 
-            return Response::send(200, true, 'destroy-user-success', $usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-user-success', $usuario);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'user-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'user-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-user-error', $e->getMessage());
         }
     }
 

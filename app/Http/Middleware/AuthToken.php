@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Helpers\PermissionHandler;
 use App\Http\Helpers\Response as HelpersResponse;
 use App\Http\Helpers\Sessao;
@@ -31,10 +33,10 @@ class AuthToken
             return $next($request);
         } catch (JWTException $e) {
 
-            return HelpersResponse::send(403, false, "token-not-authorized");
+            return HelpersResponse::send(ResponseCode::Forbideen, ResponseStatus::Failed, "token-not-authorized");
         } catch (Exception $e) {
 
-            return HelpersResponse::send(400, false, "authroziation-token-error", $e->getMessage());
+            return HelpersResponse::send(ResponseCode::BadRequest, ResponseStatus::Failed, "authroziation-token-error", $e->getMessage());
         }
 
     }

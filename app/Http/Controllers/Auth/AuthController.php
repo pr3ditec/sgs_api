@@ -56,19 +56,11 @@ class AuthController extends Controller
     {
         try {
 
-            // $login = Login::where('token', '=', $request->header('Authorization'))->firstOrFail();
-            // $login->delete();
-
             return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'logout-success');
         } catch (Exception $e) {
 
             return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'logout-error', $e->getMessage());
         }
-    }
-
-    public function check(Request $request)
-    {
-        return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'check-success');
     }
 
 }

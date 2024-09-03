@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Aparelho\AparelhoController;
+use App\Http\Controllers\Auth\AuthCheckController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PermissaoController;
 use App\Http\Controllers\Auth\UsuarioPermissaoController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post("login", [AuthController::class, 'login']);
-Route::get('auth-check', [AuthController::class, 'check'])->name('auth.check');
+Route::get('auth-check', [AuthCheckController::class, 'check'])->name('auth.check');
 
 Route::middleware(AuthToken::class)->group(function () {
 

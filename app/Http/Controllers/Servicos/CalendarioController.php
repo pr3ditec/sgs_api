@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Servicos;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Helpers\Sessao;
@@ -18,13 +20,13 @@ class CalendarioController extends Controller
 
             if ($ordem_servico->isEmpty()) {
 
-                return Response::send(404, false, 'index-os-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-os-empty');
             }
 
-            return Response::send(200, true, 'index-os-success', $ordem_servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-os-success', $ordem_servico);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-os-error', $e->getMessage());
         }
     }
 

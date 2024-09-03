@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Auth\CriarPermissaoRequest;
@@ -19,14 +21,14 @@ class PermissaoController extends Controller
 
             if ($permissao->isEmpty()) {
 
-                return Response::send(404, false, 'permission-not-found');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'permission-not-found');
             }
 
-            return Response::send(200, true, 'index-permission-success', $permissao);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-permission-success', $permissao);
 
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-permission-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-permission-error', $e->getMessage());
         }
     }
 
@@ -36,10 +38,10 @@ class PermissaoController extends Controller
 
             $permissao = Permissao::create($request->validated());
 
-            return Response::send(200, true, 'store-permission-success', $permissao);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-permission-success', $permissao);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-permission-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-permission-error', $e->getMessage());
         }
     }
 
@@ -50,13 +52,13 @@ class PermissaoController extends Controller
             $permissao = Permissao::findOrFail($id);
             $permissao->delete();
 
-            return Response::send(200, true, 'destroy-permission-success', $permissao);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-permission-success', $permissao);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, "permission-not-found");
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, "permission-not-found");
         } catch (Exception $e) {
 
-            return Response::send(400, false, "destroy-permission-error", $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, "destroy-permission-error", $e->getMessage());
         }
     }
 }

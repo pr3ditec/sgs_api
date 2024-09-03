@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\TipoUsuario;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\TipoUsuario\AlterarTipoUsuarioRequest;
@@ -20,13 +22,13 @@ class TipoUsuarioController extends Controller
 
             if ($tipo_usuario->isEmpty()) {
 
-                return Response::send(404, false, 'index-type-user-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-type-user-empty');
             }
 
-            return Response::send(200, true, 'index-type-user-success', $tipo_usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-type-user-success', $tipo_usuario);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-type-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-type-user-error', $e->getMessage());
         }
     }
 
@@ -36,13 +38,13 @@ class TipoUsuarioController extends Controller
 
             $tipo_usuario = TipoUsuario::findOrFail($id);
 
-            return Response::send(200, true, 'show-type-user-success', $tipo_usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'type-user-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'type-user-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'show-type-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-type-user-error', $e->getMessage());
         }
     }
 
@@ -54,10 +56,10 @@ class TipoUsuarioController extends Controller
                 "nome" => mb_strtoupper($request->nome),
             ]);
 
-            return Response::send(200, true, 'store-type-user-success');
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-type-user-success');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-type-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-type-user-error', $e->getMessage());
         }
     }
 
@@ -67,7 +69,7 @@ class TipoUsuarioController extends Controller
 
             if ($request->id != $id) {
 
-                return Response::send(404, false, 'update-data-corupted');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'update-data-corupted');
             }
 
             $tipo_usuario = TipoUsuario::findOrFail($id);
@@ -75,13 +77,13 @@ class TipoUsuarioController extends Controller
                 "nome" => mb_strtoupper($request->nome),
             ]);
 
-            return Response::send(200, 'update-type-user-success', $tipo_usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'type-user-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'type-user-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'update-type-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'update-type-user-error', $e->getMessage());
         }
     }
 
@@ -91,13 +93,13 @@ class TipoUsuarioController extends Controller
             $tipo_usuario = TipoUsuario::findOrFail($id);
             $tipo_usuario->delete();
 
-            return Response::send(200, true, 'destroy-type-user-success', $tipo_usuario);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-type-user-success', $tipo_usuario);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'type-user-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'type-user-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-type-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-type-user-error', $e->getMessage());
         }
     }
 }

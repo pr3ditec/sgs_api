@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Cliente;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Cliente\AlterarClienteRequest;
@@ -25,13 +27,13 @@ class ClienteController extends Controller
 
             if ($cliente->isEmpty()) {
 
-                return Response::send(404, false, 'index-client-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-client-empty');
             }
 
-            return Response::send(200, true, 'index-client-success', $cliente);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-client-success', $cliente);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-client-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-client-error', $e->getMessage());
         }
     }
 
@@ -44,7 +46,7 @@ class ClienteController extends Controller
             $pessoa_juridica = PessoaJuridica::where("cliente_id", "=", $cliente->id)->get();
             $aparelhos = Aparelho::where("cliente_id", "=", $cliente->id)->get();
 
-            return Response::send(200, true, 'show-client-success', [
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-client-success', [
                 "cliente" => $cliente,
                 "pessoa_juridica" => $pessoa_juridica ?? [],
                 "pessoa_fisica" => $pessoa_fisica ?? [],
@@ -52,10 +54,10 @@ class ClienteController extends Controller
             ]);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'client-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'client-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'show-user-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-user-error', $e->getMessage());
         }
     }
 
@@ -91,7 +93,7 @@ class ClienteController extends Controller
             }
 
             DB::commit();
-            return Response::send(200, true, 'store-client-success', [
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-client-success', [
                 "cliente" => $cliente,
                 "pessoa_fisica" => $pessoa_fisica ?? [],
                 "pessoa_juridica" => $pessoa_juridica ?? [],
@@ -99,7 +101,7 @@ class ClienteController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
 
-            return Response::send(400, false, 'store-client-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-client-error', $e->getMessage());
         }
     }
 
@@ -109,7 +111,7 @@ class ClienteController extends Controller
 
             if ($request->id != $id) {
 
-                return Response::send(404, false, 'update-data-corupted');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'update-data-corupted');
             }
 
             DB::beginTransaction();
@@ -141,15 +143,15 @@ class ClienteController extends Controller
 
             DB::commit();
 
-            return Response::send(200, 'update-client-success', $cliente);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-client-success', $cliente);
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
 
-            return Response::send(404, false, 'client-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'client-not-found');
         } catch (Exception $e) {
             DB::rollBack();
 
-            return Response::send(400, false, 'update-client-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'update-client-error', $e->getMessage());
         }
     }
 
@@ -159,13 +161,13 @@ class ClienteController extends Controller
             $cliente = Cliente::findOrFail($id);
             $cliente->delete();
 
-            return Response::send(200, true, 'destroy-client-success', $cliente);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-client-success', $cliente);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'client-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'client-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-client-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-client-error', $e->getMessage());
         }
     }
 }

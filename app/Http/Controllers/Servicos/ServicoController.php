@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Servicos;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Helpers\Sessao;
@@ -20,13 +22,13 @@ class ServicoController extends Controller
 
             if ($servico->isEmpty()) {
 
-                return Response::send(404, false, 'index-service-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-service-empty');
             }
 
-            return Response::send(200, true, 'index-service-success', $servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-service-success', $servico);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-service-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-service-error', $e->getMessage());
         }
     }
 
@@ -36,13 +38,13 @@ class ServicoController extends Controller
 
             $servico = Servico::findOrFail($id);
 
-            return Response::send(200, true, 'show-service-success', $servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-service-success', $servico);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'telephone-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'telephone-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'show-service-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-service-error', $e->getMessage());
         }
     }
 
@@ -56,10 +58,10 @@ class ServicoController extends Controller
                 "usuario_id" => Sessao::getSessionUser(),
             ]);
 
-            return Response::send(200, true, 'store-service-success', $servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-service-success', $servico);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-service-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-service-error', $e->getMessage());
         }
     }
 
@@ -69,18 +71,18 @@ class ServicoController extends Controller
 
             if ($request->id != $id) {
 
-                return Response::send(404, false, 'update-data-corupted');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'update-data-corupted');
             }
 
             $servico = Servico::findOrFail($id);
             $servico->update($request->validated());
 
-            return Response::send(200, 'update-service-success', $servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-service-success', $servico);
 
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'telephone-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'telephone-not-found');
         } catch (Exception $e) {
-            return Response::send(400, false, 'update-service-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'update-service-error', $e->getMessage());
         }
     }
 
@@ -90,13 +92,13 @@ class ServicoController extends Controller
             $servico = Servico::findOrFail($id);
             $servico->delete();
 
-            return Response::send(200, true, 'destroy-service-success', $servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-service-success', $servico);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'telephone-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'telephone-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-service-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-service-error', $e->getMessage());
         }
     }
 }

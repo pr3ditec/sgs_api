@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Cidade;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Cidade\AlterarCidadeRequest;
@@ -20,13 +22,13 @@ class CidadeController extends Controller
 
             if ($cidade->isEmpty()) {
 
-                return Response::send(404, false, 'index-city-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-city-empty');
             }
 
-            return Response::send(200, true, 'index-city-success', $cidade);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-city-success', $cidade);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-city-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-city-error', $e->getMessage());
         }
     }
 
@@ -36,13 +38,13 @@ class CidadeController extends Controller
 
             $cidade = Cidade::findOrFail($id);
 
-            return Response::send(200, true, 'show-city-success', $cidade);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-city-success', $cidade);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'city-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'city-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'show-city-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-city-error', $e->getMessage());
         }
     }
 
@@ -55,10 +57,10 @@ class CidadeController extends Controller
                 "uf" => mb_strtoupper($request->uf),
             ]);
 
-            return Response::send(200, true, 'store-city-success', $cidade);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-city-success', $cidade);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-city-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-city-error', $e->getMessage());
         }
     }
 
@@ -68,19 +70,19 @@ class CidadeController extends Controller
 
             if ($request->id != $id) {
 
-                return Response::send(404, false, 'update-data-corupted');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'update-data-corupted');
             }
 
             $cidade = Cidade::findOrFail($id);
             $cidade->update($request->validated());
 
-            return Response::send(200, 'update-city-success', $cidade);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-city-success', $cidade);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'city-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'city-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'update-city-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'update-city-error', $e->getMessage());
         }
     }
 
@@ -90,13 +92,13 @@ class CidadeController extends Controller
             $cidade = Cidade::findOrFail($id);
             $cidade->delete();
 
-            return Response::send(200, true, 'destroy-city-success', $cidade);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-city-success', $cidade);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'city-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'city-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-city-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-city-error', $e->getMessage());
         }
     }
 }

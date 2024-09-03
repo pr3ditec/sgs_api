@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Servicos;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\OrdemServico\CriarOrdemServicoRequest;
@@ -21,13 +23,13 @@ class OrdemServicoController extends Controller
 
             if ($ordem_servico->isEmpty()) {
 
-                return Response::send(404, false, 'index-os-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-os-empty');
             }
 
-            return Response::send(200, true, 'index-os-success', $ordem_servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-os-success', $ordem_servico);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-os-error', $e->getMessage());
         }
     }
 
@@ -37,13 +39,13 @@ class OrdemServicoController extends Controller
 
             $ordem_servico = OrdemServico::getAllDataById($id);
 
-            return Response::send(200, true, 'show-os-success', $ordem_servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-os-success', $ordem_servico);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'os-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'os-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'show-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-os-error', $e->getMessage());
         }
     }
 
@@ -87,11 +89,11 @@ class OrdemServicoController extends Controller
 
             DB::commit();
 
-            return Response::send(200, true, 'store-os-success', $ordem_servico_store);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-os-success', $ordem_servico_store);
         } catch (Exception $e) {
             DB::rollBack();
 
-            return Response::send(400, false, 'store-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-os-error', $e->getMessage());
         }
     }
 
@@ -101,13 +103,13 @@ class OrdemServicoController extends Controller
             $ordem_servico = OrdemServico::findOrFail($id);
             $ordem_servico->delete();
 
-            return Response::send(200, true, 'destroy-os-success', $ordem_servico);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-os-success', $ordem_servico);
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'os-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'os-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-os-error', $e->getMessage());
         }
     }
 

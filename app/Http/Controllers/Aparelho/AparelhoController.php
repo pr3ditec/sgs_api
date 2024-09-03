@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Aparelho;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\Aparelho\AlterarAparelhoRequest;
@@ -20,14 +22,14 @@ class AparelhoController extends Controller
 
             if ($aparelho->isEmpty()) {
 
-                return Response::send(404, false, 'index-device-empty');
+                return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'index-device-empty');
             }
 
-            return Response::send(200, true, 'index-device-success', $aparelho);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'index-device-success', $aparelho);
 
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'index-device-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'index-device-error', $e->getMessage());
         }
     }
 
@@ -37,11 +39,11 @@ class AparelhoController extends Controller
 
             $aparelho = Aparelho::findOrFail($id);
 
-            return Response::send(200, true, 'show-device-success', $aparelho);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-device-success', $aparelho);
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'device-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'device-not-found');
         } catch (Exception $e) {
-            return Response::send(400, false, 'show-device-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'show-device-error', $e->getMessage());
         }
     }
 
@@ -55,10 +57,10 @@ class AparelhoController extends Controller
                 "cliente_id" => $request->cliente_id,
             ]);
 
-            return Response::send(200, true, 'store-device-success', $aparelho);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-device-success', $aparelho);
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-device-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-device-error', $e->getMessage());
         }
     }
 
@@ -73,12 +75,12 @@ class AparelhoController extends Controller
                 "cliente_id" => $request->cliente_id ?? $aparelho->cliente_id,
             ]);
 
-            return Response::send(200, true, 'update-device-success', $aparelho);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-device-success', $aparelho);
 
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'device-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'device-not-found');
         } catch (Exception $e) {
-            return Response::send(400, false, 'update-device-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'update-device-error', $e->getMessage());
         }
     }
 
@@ -88,11 +90,11 @@ class AparelhoController extends Controller
             $aparelho = Aparelho::findOrFail($id);
             $aparelho->delete();
 
-            return Response::send(200, true, 'destroy-device-success', $aparelho);
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'destroy-device-success', $aparelho);
         } catch (ModelNotFoundException $e) {
-            return Response::send(404, false, 'device-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'device-not-found');
         } catch (Exception $e) {
-            return Response::send(400, false, 'destroy-device-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-device-error', $e->getMessage());
         }
     }
 }

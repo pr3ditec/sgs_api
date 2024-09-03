@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Servicos;
 
+use App\Enums\ResponseCode;
+use App\Enums\ResponseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
 use App\Http\Requests\OrdemServico\AdicionarItemOrdemServicoRequest;
@@ -18,10 +20,10 @@ class ItemOsEquipamentoController extends Controller
 
             $item_os = ItemOsEquipamento::create($request->validated());
 
-            return Response::send(200, true, 'store-item-os-success');
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'store-item-os-success');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'store-item-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-item-os-error', $e->getMessage());
         }
 
     }
@@ -32,14 +34,14 @@ class ItemOsEquipamentoController extends Controller
             $item_os = ItemOsEquipamento::findOrFail($item_os_equipamento_id);
             $item_os->delete();
 
-            return Response::send(200, true, "destroy-item-os-success");
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, "destroy-item-os-success");
 
         } catch (ModelNotFoundException $e) {
 
-            return Response::send(404, false, 'item-os-not-found');
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'item-os-not-found');
         } catch (Exception $e) {
 
-            return Response::send(400, false, 'destroy-item-os-error', $e->getMessage());
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'destroy-item-os-error', $e->getMessage());
         }
     }
 }

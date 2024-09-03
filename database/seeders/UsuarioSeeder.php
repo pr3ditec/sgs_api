@@ -28,6 +28,10 @@ class UsuarioSeeder extends Seeder
                 "usuario_id" => 1,
                 "permissao_id" => $permissao->id,
             ]);
+            DB::table('usuario_permissao')->insert([
+                "usuario_id" => 2,
+                "permissao_id" => $permissao->id,
+            ]);
         }
 
     }

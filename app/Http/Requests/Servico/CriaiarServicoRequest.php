@@ -22,7 +22,7 @@ class CriaiarServicoRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            "usuario_id" => "required|integer|exists:usuario,id",
+            // "usuario_id" => "required|integer|exists:usuario,id",
             "preco" => "required|numeric",
             "descricao" => "required|max:100"
         ];

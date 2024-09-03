@@ -7,6 +7,7 @@ use App\Http\Helpers\Response;
 use App\Http\Helpers\Token;
 use App\Http\Requests\Auth\AuthRequest;
 use App\Models\Login;
+use App\Models\TipoUsuario;
 use App\Models\Usuario;
 use App\Models\UsuarioPermissao;
 use Exception;
@@ -34,14 +35,16 @@ class AuthController extends Controller
                 "token" => Token::make($usuario, $usuario_permissao),
             ]);
 
+            $tipo_usuario = TipoUsuario::find($usuario->tipo_usuario_id);
+
             return Response::send(200, true, 'login-success', [
                 "login" => $login,
                 "usuario" => [
                     "id" => $usuario->id,
                     "nome" => $usuario->nome,
                     "email" => $usuario->email,
-                    "tipo" => $usuario->tipo_usuario_id,
-                ],
+                    "tipo" => $tipo_usuario->nome,
+                ],  
             ]);
         } catch (Exception $e) {
 

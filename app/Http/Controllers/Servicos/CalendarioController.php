@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Servicos;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
+use App\Http\Helpers\Sessao;
 use App\Models\OrdemServico;
 use Exception;
 
@@ -13,8 +14,7 @@ class CalendarioController extends Controller
     public function index()
     {
         try {
-
-            $ordem_servico = OrdemServico::dataFormatedToCalendar("ordem_servico");
+            $ordem_servico = OrdemServico::dataFormatedToCalendar(Sessao::getSessionUser());
 
             if ($ordem_servico->isEmpty()) {
 

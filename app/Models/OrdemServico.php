@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Helpers\Sessao;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,8 @@ class OrdemServico extends Model
     protected static function getAllData()
     {
 
-        $ordem_servico = DB::table('ordem_servico')->get();
+        $ordem_servico = DB::table('ordem_servico')
+            ->where("usuario_id", "=", Sessao::getSessionUser())->get();
 
         foreach ($ordem_servico as $key => $os) {
 
@@ -36,7 +38,7 @@ class OrdemServico extends Model
         return $ordem_servico;
     }
 
-    protected static function dataFormatedToCalendar()
+    protected static function dataFormatedToCalendar(int $usuario_id)
     {
         return DB::table('ordem_servico')
             ->leftJoin('cliente', 'cliente.id', '=', 'ordem_servico.cliente_id')
@@ -46,6 +48,7 @@ class OrdemServico extends Model
                 DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "green" ELSE "black" END AS "backgroundColor"'),
                 'cliente.nome as title',
             ])
+            ->where("ordem_servico.usuario_id", "=", $usuario_id)
             ->get();
     }
 }

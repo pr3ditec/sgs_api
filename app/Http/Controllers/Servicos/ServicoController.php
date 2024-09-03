@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Servicos;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
+use App\Http\Helpers\Sessao;
 use App\Http\Requests\Servico\AlterarServicoRequest;
 use App\Http\Requests\Servico\CriaiarServicoRequest;
 use App\Models\Servico;
@@ -15,9 +16,7 @@ class ServicoController extends Controller
     public function index()
     {
         try {
-
-            // $servico = Servico::getUserServices(Sessao::getSessionUser());
-            $servico = Servico::getUserServices(2);
+            $servico = Servico::getUserServices(Sessao::getSessionUser());
 
             if ($servico->isEmpty()) {
 
@@ -54,7 +53,7 @@ class ServicoController extends Controller
             $servico = Servico::create([
                 "descricao" => mb_strtoupper($request->descricao),
                 "preco" => $request->preco,
-                "usuario_id" => $request->usuario_id,
+                "usuario_id" => Sessao::getSessionUser(),
             ]);
 
             return Response::send(200, true, 'store-service-success', $servico);

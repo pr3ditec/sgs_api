@@ -12,7 +12,6 @@ use App\Http\Controllers\Servicos\ItemOsServicoController;
 use App\Http\Controllers\Servicos\OrdemServicoController;
 use App\Http\Controllers\Servicos\ServicoController;
 use App\Http\Controllers\Telefone\TelefoneController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\TipoUsuario\TipoUsuarioController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use App\Http\Middleware\AuthToken;
@@ -30,10 +29,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post("login", [AuthController::class, 'login']);
+Route::get('auth-check', [AuthController::class, 'check'])->name('auth.check');
 
 Route::middleware(AuthToken::class)->group(function () {
-
-    Route::get('auth-check', [AuthController::class, 'check'])->name('auth.check');
 
     Route::post("logout", [AuthController::class, 'logout'])->name('logout.logout');
 

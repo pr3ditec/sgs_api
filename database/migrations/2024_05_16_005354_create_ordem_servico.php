@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string("numero", 10)->nullable();
             $table->boolean("concluido")->default(false);
             $table->boolean("recebido")->default(false);
-            $table->foreignId("cliente_id")->references("id")->on("cliente");
-            $table->foreignId("usuario_id")->references("id")->on("usuario");
+            $table->foreignId("cliente_id")->references("id")->on("cliente")->onDelete('CASCADE');
+            $table->foreignId("usuario_id")->references("id")->on("usuario")->onDelete('CASCADE');
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\PermissaoController;
 use App\Http\Controllers\Auth\UsuarioPermissaoController;
 use App\Http\Controllers\Cidade\CidadeController;
 use App\Http\Controllers\Cliente\ClienteController;
+use App\Http\Controllers\Dashboard\d\DashboardController;
 use App\Http\Controllers\Servicos\CalendarioController;
 use App\Http\Controllers\Servicos\ItemOsEquipamentoController;
 use App\Http\Controllers\Servicos\ItemOsServicoController;
@@ -35,6 +36,9 @@ Route::get('auth-check', [AuthCheckController::class, 'check'])->name('auth.chec
 Route::middleware(AuthToken::class)->group(function () {
 
     Route::post("logout", [AuthController::class, 'logout'])->name('logout.logout');
+
+    Route::get("dashboard", [DashboardController::class, "dashboard"])->name('dashboard.dashboard');
+    Route::put("dashboard/{id}", [DashboardController::class, "atualizar"])->name('dashboard.atualizar');
 
     Route::apiResource("usuario", UsuarioController::class);
     Route::apiResource('tipo-usuario', TipoUsuarioController::class);

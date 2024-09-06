@@ -72,6 +72,7 @@ class ClienteController extends Controller
                 'cep' => $request->cep,
                 'complemento' => strtoupper($request->complemento),
                 'numero' => $request->numero,
+                'telefone' => $request->telefone,
                 'cidade_id' => $request->cidade_id,
                 'usuario_id' => $request->usuario_id,
             ]);

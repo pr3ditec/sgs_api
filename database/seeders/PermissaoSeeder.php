@@ -73,6 +73,8 @@ class PermissaoSeeder extends Seeder
             ["nome" => "calendario.index", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["nome" => "logout.logout", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["nome" => "auth.check", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "dashboard.dashboard", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["nome" => "dashboard.atualizar", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
 
         ];
 

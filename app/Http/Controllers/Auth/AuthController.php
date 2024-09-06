@@ -14,7 +14,7 @@ use Exception;
 class AuthController extends Controller
 {
 
-    private AuthService $authService;
+    private readonly AuthService $authService;
 
     public function __construct()
     {

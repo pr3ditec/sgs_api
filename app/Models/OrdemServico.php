@@ -48,8 +48,10 @@ class OrdemServico extends Model
                 DB::raw('DATE(ordem_servico.created_at) as start'),
                 DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "green" ELSE "black" END AS "backgroundColor"'),
                 'cliente.nome as title',
+                'cliente.telefone as telefone'
             ])
             ->where("ordem_servico.usuario_id", "=", $usuario_id)
+            ->orderBy('ordem_servico.created_at')
             ->get();
     }
 

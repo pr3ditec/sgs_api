@@ -52,6 +52,7 @@ class AparelhoController extends Controller
         try {
 
             $aparelho = Aparelho::create([
+                "numero_serie" => $request->numero_serie,
                 "nome" => strtoupper($request->nome),
                 "tipo" => strtoupper($request->tipo),
                 "cliente_id" => $request->cliente_id,

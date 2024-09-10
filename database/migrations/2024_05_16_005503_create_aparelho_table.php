@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('aparelho', function (Blueprint $table) {
             $table->id();
+            $table->string('numero_serie', 50);
             $table->string("nome", 50);
             $table->string("tipo", 50);
             $table->foreignId("cliente_id")->references("id")->on("cliente")->onDelete("CASCADE");

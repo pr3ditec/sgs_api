@@ -22,6 +22,7 @@ class AlterarAparelhoRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'numero_serie' => 'max:50',
             'nome' => 'max:50',
             'tipo' => 'max:50',
             'cliente_id' => 'exists:cliente,id',

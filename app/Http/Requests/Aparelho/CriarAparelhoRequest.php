@@ -22,6 +22,7 @@ class CriarAparelhoRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'numero_serie' => 'required|max:50',
             'nome' => 'required|max:50',
             'tipo' => 'required|max:50',
             'cliente_id' => 'required|exists:cliente,id',

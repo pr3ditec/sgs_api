@@ -48,7 +48,7 @@ class OrdemServico extends Model
                 DB::raw('DATE(ordem_servico.created_at) as start'),
                 DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "green" ELSE "black" END AS "backgroundColor"'),
                 'cliente.nome as title',
-                'cliente.telefone as telefone'
+                'cliente.telefone as telefone',
             ])
             ->where("ordem_servico.usuario_id", "=", $usuario_id)
             ->orderBy('ordem_servico.created_at')
@@ -74,5 +74,11 @@ class OrdemServico extends Model
         SUM(CASE WHEN MONTH(updated_at) = ? AND YEAR(updated_at) = ? THEN 1 ELSE 0 END) AS mes_atual
     ', [Carbon::now()->subDays(30), Carbon::now()->month, Carbon::now()->year])
             ->first();
+    }
+
+    protected static function getNextServiceOrder()
+    {
+        $last_service_order = DB::table("ordem_servico")->select("numero")->orderBy("numero", "desc")->limit(1)->get();
+        return ((int) $last_service_order[0]->numero) + 1;
     }
 }

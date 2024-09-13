@@ -23,7 +23,6 @@ class CriarOrdemServicoRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'numero' => 'required|max:10',
             'concluido' => 'required|boolean',
             'recebido' => 'required|boolean',
             'equipamentos_servicos' => ["required", new EquipamentoServiceRule()],

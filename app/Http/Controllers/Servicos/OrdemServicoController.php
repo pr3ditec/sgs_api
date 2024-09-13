@@ -58,8 +58,10 @@ class OrdemServicoController extends Controller
 
             DB::beginTransaction();
 
+            $numero_ordem_servico = OrdemServico::getNextServiceOrder();
+
             $ordem_servico_store = OrdemServico::create([
-                "numero" => $request->numero,
+                "numero" => $numero_ordem_servico,
                 "concluido" => $request->concluido,
                 "recebido" => $request->recebido,
                 "cliente_id" => $request->cliente_id,

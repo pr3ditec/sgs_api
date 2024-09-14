@@ -33,7 +33,9 @@ class OrdemServico extends Model
     protected static function getAllDataById(int $id)
     {
 
-        $ordem_servico = DB::table("ordem_servico")->where("id", "=", $id)->first();
+        $ordem_servico = DB::table("ordem_servico")
+            ->leftJoin("cliente", "cliente.id", "=", "ordem_servico.cliente_id")
+            ->where("ordem_servico.id", "=", $id)->first();
         $ordem_servico->equipamentos = ItemOsEquipamento::getAllServices($id);
 
         return $ordem_servico;

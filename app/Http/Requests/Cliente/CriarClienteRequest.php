@@ -22,7 +22,7 @@ class CriarClienteRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|max:100',
+            'nome' => 'required|max:100|unique:cliente,nome',
             'logradouro' => 'required|max:255',
             'cep' => 'required|digits:8|numeric',
             'complemento' => 'max:100',

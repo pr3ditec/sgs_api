@@ -11,6 +11,7 @@ use App\Models\OrdemServico;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrdemServicoController extends Controller
@@ -96,6 +97,26 @@ class OrdemServicoController extends Controller
             DB::rollBack();
 
             return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'store-os-error', $e->getMessage());
+        }
+    }
+
+    public function update(int $id, Request $request)
+    {
+        try {
+
+            $ordem_servico = OrdemServico::findOrFail($id);
+            $ordem_servico->recebido = $request->recebido;
+            $ordem_servico->concluido = $request->concluido;
+
+            $ordem_servico->save();
+
+            return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'update-os-success');
+        } catch (ModelNotFoundException $e) {
+
+            return Response::send(ResponseCode::NotFound, ResponseStatus::Failed, 'os-not-found');
+        } catch (Exception $e) {
+
+            return Response::send(ResponseCode::BadRequest, ResponseStatus::Failed, 'update-os-error', $e->getMessage());
         }
     }
 

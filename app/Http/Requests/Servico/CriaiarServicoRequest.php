@@ -24,7 +24,7 @@ class CriaiarServicoRequest extends BaseRequest
         return [
             // "usuario_id" => "required|integer|exists:usuario,id",
             "preco" => "required|numeric",
-            "descricao" => "required|max:100"
+            "descricao" => "required|unique:servico,descricao|max:100",
         ];
     }
     public function messages(): array

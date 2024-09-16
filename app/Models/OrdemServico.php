@@ -19,7 +19,9 @@ class OrdemServico extends Model
     {
 
         $ordem_servico = DB::table('ordem_servico')
-            ->where("usuario_id", "=", Sessao::getSessionUser())->get();
+            ->where("usuario_id", "=", Sessao::getSessionUser())
+            ->orderBy("numero", "DESC")
+            ->get();
 
         foreach ($ordem_servico as $key => $os) {
 

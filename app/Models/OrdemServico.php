@@ -34,6 +34,7 @@ class OrdemServico extends Model
     {
 
         $ordem_servico = DB::table("ordem_servico")
+            ->select(["ordem_servico.*", "cliente.nome"])
             ->leftJoin("cliente", "cliente.id", "=", "ordem_servico.cliente_id")
             ->where("ordem_servico.id", "=", $id)->first();
         $ordem_servico->equipamentos = ItemOsEquipamento::getAllServices($id);

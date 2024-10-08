@@ -65,6 +65,8 @@ class OrdemServicoController extends Controller
                 "numero" => $numero_ordem_servico,
                 "concluido" => $request->concluido,
                 "recebido" => $request->recebido,
+                "data_os" => $request->data_os,
+                "valor" => $request->valor,
                 "cliente_id" => $request->cliente_id,
                 "usuario_id" => $request->usuario_id,
             ]);

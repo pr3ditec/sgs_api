@@ -51,13 +51,13 @@ class OrdemServico extends Model
             ->leftJoin('cliente', 'cliente.id', '=', 'ordem_servico.cliente_id')
             ->select([
                 'ordem_servico.id as id',
-                DB::raw('DATE(ordem_servico.created_at) as start'),
+                DB::raw('DATE(ordem_servico.data_os) as start'),
                 DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "green" ELSE "black" END AS "backgroundColor"'),
                 'cliente.nome as title',
                 'cliente.telefone as telefone',
             ])
             ->where("ordem_servico.usuario_id", "=", $usuario_id)
-            ->orderBy('ordem_servico.created_at')
+            ->orderBy('ordem_servico.data_os')
             ->get();
     }
 
@@ -66,8 +66,8 @@ class OrdemServico extends Model
         return DB::table('ordem_servico')
             ->select('ordem_servico.id as id', 'ordem_servico.numero as ordem_servico', 'cliente.nome as cliente', 'cliente.telefone as telefone')
             ->leftJoin('cliente', 'cliente.id', '=', 'ordem_servico.cliente_id')
-            ->where('ordem_servico.updated_at', '<', Carbon::now()->subYear())
-            ->orderBy('ordem_servico.updated_at')
+            ->where('ordem_servico.data_os', '<', Carbon::now()->subYear())
+            ->orderBy('ordem_servico.data_os')
             ->get();
     }
 
@@ -76,8 +76,8 @@ class OrdemServico extends Model
         return DB::table('ordem_servico')
             ->selectRaw('
         COUNT(*) AS total_ordem_servico,
-        SUM(CASE WHEN updated_at >= ? THEN 1 ELSE 0 END) AS ultimos_30_dias,
-        SUM(CASE WHEN MONTH(updated_at) = ? AND YEAR(updated_at) = ? THEN 1 ELSE 0 END) AS mes_atual
+        SUM(CASE WHEN data_os >= ? THEN 1 ELSE 0 END) AS ultimos_30_dias,
+        SUM(CASE WHEN MONTH(data_os) = ? AND YEAR(data_os) = ? THEN 1 ELSE 0 END) AS mes_atual
     ', [Carbon::now()->subDays(30), Carbon::now()->month, Carbon::now()->year])
             ->first();
     }

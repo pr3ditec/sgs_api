@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Helpers\Sessao;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -83,7 +84,11 @@ class OrdemServico extends Model
 
     protected static function getNextServiceOrder()
     {
-        $last_service_order = DB::table("ordem_servico")->select("numero")->orderBy("numero", "desc")->limit(1)->get();
-        return ((int) $last_service_order[0]->numero) + 1;
+        try {
+            $last_service_order = DB::table("ordem_servico")->select("numero")->orderBy("numero", "desc")->limit(1)->get();
+            return ((int) $last_service_order[0]->numero) + 1;
+        } catch (Exception $e) {
+            return 0001;
+        }
     }
 }

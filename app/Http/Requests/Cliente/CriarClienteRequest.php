@@ -28,7 +28,7 @@ class CriarClienteRequest extends BaseRequest
             'complemento' => 'max:100',
             'numero' => 'required|max:5',
             'telefone' => 'required|max:11',
-            'cidade_id' => 'required|exists:cidade,id',
+            'cidade' => 'required|max:30',
             'cpf' => 'digits:11|numeric|unique:pessoa_fisica,cpf|prohibits:cnpj,inscricao_municipal,inscricao_estadual',
             'cnpj' => 'digits:14|numeric|unique:pessoa_juridica,cnpj|prohibits:cpf',
             'inscricao_municipal' => 'digits:15|numeric|unique:pessoa_juridica,inscricao_municipal|prohibits:cpf',

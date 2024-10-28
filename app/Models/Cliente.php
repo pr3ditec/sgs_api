@@ -20,14 +20,13 @@ class Cliente extends Model
         return DB::table('cliente')
             ->leftJoin('pessoa_fisica', 'pessoa_fisica.cliente_id', '=', 'cliente.id')
             ->leftJoin('pessoa_juridica', 'pessoa_juridica.cliente_id', '=', 'cliente.id')
-            ->leftJoin('cidade', 'cidade.id', '=', 'cliente.cidade_id')
             ->select([
                 "cliente.*",
                 "pessoa_fisica.cpf",
                 "pessoa_juridica.cnpj",
                 "pessoa_juridica.inscricao_estadual",
                 "pessoa_juridica.inscricao_municipal",
-                "cidade.nome as cidade_nome"])
+            ])
             ->get();
     }
 

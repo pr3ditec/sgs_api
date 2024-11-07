@@ -25,7 +25,7 @@ class CriarOrdemServicoRequest extends BaseRequest
         return [
             'concluido' => 'required|boolean',
             'recebido' => 'required|boolean',
-            'valor' => "required|float",
+            'valor' => "required|decimal:2",
             'data_os' => 'required|date',
             'equipamentos_servicos' => ["required", new EquipamentoServiceRule()],
             'cliente_id' => 'required|exists:cliente,id',

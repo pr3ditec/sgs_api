@@ -73,7 +73,7 @@ class ClienteController extends Controller
                 'complemento' => strtoupper($request->complemento),
                 'numero' => $request->numero,
                 'telefone' => $request->telefone,
-                'cidade_id' => $request->cidade_id,
+                'cidade' => $request->cidade,
                 'usuario_id' => $request->usuario_id,
             ]);
 
@@ -124,7 +124,7 @@ class ClienteController extends Controller
                 'cep' => $request->cep ?? $cliente->cep,
                 'complemento' => $request->complemento ? strtoupper($request->complemento) : $cliente->complemento,
                 'numero' => $request->numero ?? $cliente->numero,
-                'cidade_id' => $request->cidade_id ?? $cliente->cidade_id,
+                'cidade' => $request->cidade ?? $cliente->cidade,
             ]);
 
             if (isset($request->cpf)) {

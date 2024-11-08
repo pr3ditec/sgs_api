@@ -19,4 +19,17 @@ class Servico extends Model
     {
         return DB::table('servico')->where('usuario_id', '=', $usuario_id)->get();
     }
+
+    public static function getServiceInfo(int $servico_id)
+    {
+        return DB::table("servico")
+            ->select([
+                "servico.id",
+                "servico.descricao",
+                DB::raw('CAST(servico.preco AS DECIMAL(9,2)) as preco'),
+            ])
+            ->where("id", "=", $servico_id)
+            ->get()
+            ->first();
+    }
 }

@@ -36,7 +36,7 @@ class ServicoController extends Controller
     {
         try {
 
-            $servico = Servico::findOrFail($id);
+            $servico = Servico::getServiceInfo($id);
 
             return Response::send(ResponseCode::Ok, ResponseStatus::Success, 'show-service-success', $servico);
         } catch (ModelNotFoundException $e) {

@@ -27,7 +27,25 @@ class Cliente extends Model
                 "pessoa_juridica.inscricao_estadual",
                 "pessoa_juridica.inscricao_municipal",
             ])
+            ->orderBy("cliente.nome")
             ->get();
+    }
+
+    protected static function findAllDataFromId(int $id)
+    {
+        return DB::table('cliente')
+            ->leftJoin('pessoa_fisica', 'pessoa_fisica.cliente_id', '=', 'cliente.id')
+            ->leftJoin('pessoa_juridica', 'pessoa_juridica.cliente_id', '=', 'cliente.id')
+            ->select([
+                "cliente.*",
+                "pessoa_fisica.cpf",
+                "pessoa_juridica.cnpj",
+                "pessoa_juridica.inscricao_estadual",
+                "pessoa_juridica.inscricao_municipal",
+            ])
+            ->where("cliente.id", "=", $id)
+            ->get()
+            ->first();
     }
 
 }

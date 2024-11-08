@@ -28,10 +28,10 @@ class AlterarClienteRequest extends BaseRequest
             'complemento' => 'max:100',
             'numero' => 'max:5',
             'cidade' => 'max:30',
-            'cpf' => 'digits:11|numeric|unique:pessoa_fisica,cpf|prohibits:cnpj,inscricao_municipal,inscricao_estadual',
-            'cnpj' => 'digits:14|numeric|unique:pessoa_juridica,cnpj|prohibits:cpf',
-            'inscricao_municipal' => 'digits:15|numeric|unique:pessoa_juridica,inscricao_municipal|prohibits:cpf',
-            'inscricao_estadual' => 'digits:15|numeric|unique:pessoa_juridica,inscricao_estadual|prohibits:cpf',
+            'cpf' => 'digits:11|numeric|prohibits:cnpj,inscricao_municipal,inscricao_estadual',
+            'cnpj' => 'digits:14|numeric|prohibits:cpf',
+            'inscricao_municipal' => 'digits:15|numeric|prohibits:cpf',
+            'inscricao_estadual' => 'digits:15|numeric|prohibits:cpf',
         ];
     }
 

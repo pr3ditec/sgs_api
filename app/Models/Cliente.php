@@ -48,4 +48,35 @@ class Cliente extends Model
             ->first();
     }
 
+    protected static function clientsWithMostServiceOrder()
+    {
+        return DB::table("cliente")
+            ->leftJoin("ordem_servico", "ordem_servico.cliente_id", "=", "cliente.id")
+            ->select([
+                "cliente.nome",
+                "cliente.telefone",
+                "cliente.cep",
+                DB::raw("count(ordem_servico.id) as 'quantidade ordem de serviço'"),
+            ])
+            ->groupBy("cliente.nome", "cliente.telefone", "cliente.cep")
+            ->orderBy("quantidade ordem de serviço")
+            ->get();
+    }
+
+    protected static function clientsWithMostEquipments()
+    {
+        return DB::table("cliente")
+            ->leftJoin("aparelho", "aparelho.cliente_id", "=", "cliente.id")
+            ->select([
+                "cliente.nome",
+                "cliente.telefone",
+                "cliente.cep",
+                DB::raw("group_concat(aparelho.nome) as equipamentos"),
+                DB::raw("COUNT(aparelho.id) as 'numero de equipamentos'"),
+            ])
+            ->groupBy("cliente.nome", "cliente.telefone", "cliente.cep")
+            ->orderBy("numero de equipamentos")
+            ->get();
+    }
+
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\UsuarioPermissaoController;
 use App\Http\Controllers\Cidade\CidadeController;
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Dashboard\d\DashboardController;
+use App\Http\Controllers\Relatorio\RelatorioController;
 use App\Http\Controllers\Servicos\CalendarioController;
 use App\Http\Controllers\Servicos\ItemOsEquipamentoController;
 use App\Http\Controllers\Servicos\ItemOsServicoController;
@@ -39,6 +40,8 @@ Route::middleware(AuthToken::class)->group(function () {
 
     Route::get("dashboard", [DashboardController::class, "dashboard"])->name('dashboard.dashboard');
     Route::put("dashboard/{id}", [DashboardController::class, "atualizar"])->name('dashboard.atualizar');
+
+    Route::get("relatorios", [RelatorioController::class, "relatorios"])->name('relatorios.relatorios');
 
     Route::apiResource("usuario", UsuarioController::class);
     Route::apiResource('tipo-usuario', TipoUsuarioController::class);

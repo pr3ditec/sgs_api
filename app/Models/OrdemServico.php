@@ -52,7 +52,7 @@ class OrdemServico extends Model
             ->select([
                 'ordem_servico.id as id',
                 DB::raw('DATE(ordem_servico.data_os) as start'),
-                DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "green" ELSE "black" END AS "backgroundColor"'),
+                DB::raw('CASE WHEN ordem_servico.recebido = 1 THEN "black" ELSE "black" END AS "backgroundColor"'),
                 'cliente.nome as title',
                 'cliente.telefone as telefone',
             ])
